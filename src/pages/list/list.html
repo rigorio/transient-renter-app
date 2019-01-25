@@ -8,6 +8,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label floating>Tap here to search</ion-label>
+    <ion-input [(ngModel)]="search"></ion-input>
+  </ion-item>
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-start></ion-icon>
