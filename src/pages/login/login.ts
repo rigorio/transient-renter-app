@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {AccountPage} from "../account/home";
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {MenuPage} from "../menu/menu";
-import {ListPage} from "../list/list";
 
 /**
  * Generated class for the LoginPage page.

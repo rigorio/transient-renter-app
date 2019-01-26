@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {CreateItemPage} from "../create-item/create-item";
 
 /**
  * Generated class for the SellPage page.
@@ -22,4 +23,7 @@ export class SellPage {
     console.log('ionViewDidLoad SellPage');
   }
 
+  createItem() {
+    this.navCtrl.push(CreateItemPage);
+  }
 }

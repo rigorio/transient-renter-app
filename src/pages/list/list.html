@@ -3,25 +3,29 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>Home</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-item>
     <ion-label floating>Tap here to search</ion-label>
-    <ion-input [(ngModel)]="search"></ion-input>
+    <ion-input (change)="keyword"></ion-input>
   </ion-item>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
+    <button ion-item *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
+      <ion-icon [name]="transient.title" item-start></ion-icon>
+      <ion-img src="{{ pic }}" *ngFor="let pic of transient.pics"></ion-img>
+      {{transient.title}}
       <div class="item-note" item-end>
-        {{item.note}}
+        {{transient.reviews}}
+      </div>
+      <div>
+        $ {{transient.price}}
+        <br>
+        {{transient.description}}
+        <br>
       </div>
     </button>
   </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
 </ion-content>

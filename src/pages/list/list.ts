@@ -9,32 +9,97 @@ export class ListPage {
   selectedItem: any;
   icons: string[];
   items: Array<{ title: string, note: string, icon: string }>;
-  transients: Array<{ pic: string[], slots: number, reviews: number[], title: string, address: string, description: string, userId: number, duration: number }>;
-  owner: Array<{ name: string, contacts: string[], transientId: number[] }>;
+  transients: Array<{
+    id: number, pics: string[], title: string, price: number, description: string,
+    slots: number, vacant: number, reviews: number[], ownerId: number
+  }> = [];
+  owner: Array<{ name: string, contacts: string[], transientId: number[] }> = [];
 
+  keyword: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+    this.init();
 
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-      'american-football', 'boat', 'bluetooth', 'build'];
 
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
   }
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
+    console.log(item);
+  }
+
+  private init() {
+// If we navigated to this page, we will have an item available as a nav param
+    this.transients.push({
+      id: 1,
+      pics: ['f', 'v'],
+      title: 'dog',
+      price: 500,
+      description: 'the quick brown fox jumped over the lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy me',
+      slots: 5,
+      vacant: 3,
+      reviews: [1, 3, 6, 5],
+      ownerId: 1
+    });
+
+    this.owner.push({
+      name: 'heyayayaya',
+      contacts: ['a', 'b'],
+      transientId: [1]
+    });
+
+    this.transients.push({
+      id: 1,
+      pics: ['f', 'v'],
+      title: 'dog',
+      price: 500,
+      description: 'the quick brown fox jumped over the lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy me',
+      slots: 5,
+      vacant: 3,
+      reviews: [1, 3, 6, 5],
+      ownerId: 1
+    });
+
+    this.owner.push({
+      name: 'heyayayaya',
+      contacts: ['a', 'b'],
+      transientId: [1]
+    });
+
+    this.transients.push({
+      id: 1,
+      pics: ['f', 'v'],
+      title: 'dog',
+      price: 500,
+      description: 'the quick brown fox jumped over the lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy me',
+      slots: 5,
+      vacant: 3,
+      reviews: [1, 3, 6, 5],
+      ownerId: 1
+    });
+
+    this.owner.push({
+      name: 'heyayayaya',
+      contacts: ['a', 'b'],
+      transientId: [1]
+    });
+
+    this.transients.push({
+      id: 1,
+      pics: ['f', 'v'],
+      title: 'dog',
+      price: 500,
+      description: 'the quick brown fox jumped over the lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy me',
+      slots: 5,
+      vacant: 3,
+      reviews: [1, 3, 6, 5],
+      ownerId: 1
+    });
+
+    this.owner.push({
+      name: 'heyayayaya',
+      contacts: ['a', 'b'],
+      transientId: [1]
     });
   }
 }

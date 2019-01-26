@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle *ngIf="!item ">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Add Item</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <button ion-button (click)="addImage()">Add image</button>
+
+  <ion-item>
+    <ion-label floating>Title</ion-label>
+    <ion-input [(ngModel)]="title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Price</ion-label>
+    <ion-input [(ngModel)]="price"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Description</ion-label>
+    <ion-input [(ngModel)]="description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Vacant</ion-label>
+    <ion-input [(ngModel)]="vacant"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Total slots</ion-label>
+    <ion-input [(ngModel)]="slots"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Vacant slots</ion-label>
+    <ion-input [(ngModel)]="vacant"></ion-input>
+  </ion-item>
+
+
+
+
+
+
+</ion-content>

@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { AccountPage } from '../pages/account/home';
 import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -11,6 +10,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
 import {MenuPage} from "../pages/menu/menu";
 import {SellPage} from "../pages/sell/sell";
+import {AccountPage} from "../pages/account/account";
+import {CreateItemPage} from "../pages/create-item/create-item";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {SellPage} from "../pages/sell/sell";
     ListPage,
     LoginPage,
     MenuPage,
-    SellPage
+    SellPage,
+    CreateItemPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import {SellPage} from "../pages/sell/sell";
     ListPage,
     LoginPage,
     MenuPage,
-    SellPage
+    SellPage,
+    CreateItemPage
   ],
   providers: [
     StatusBar,
