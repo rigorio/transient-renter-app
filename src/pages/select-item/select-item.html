@@ -1,0 +1,47 @@
+<!--
+  Generated template for the SelectItemPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>selectItem</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item>
+
+    <ion-icon [name]="title" item-start></ion-icon>
+    <ion-img src="{{ pic }}" *ngFor="let pic of pics"></ion-img>
+    {{title}}
+    <ion-label class="item-note">
+      $ {{price}}
+    </ion-label>
+    <ion-label>
+      {{vacant}}/{{slots}} available
+      <br>
+      {{description}}
+      <br>
+    </ion-label>
+    <ion-label>
+      {{averageReview}}
+    </ion-label>
+
+    <ion-label>
+      Owner:
+    </ion-label>
+    <ion-label>
+      {{owner.name}}
+    </ion-label>
+    <!--<ion-label *ngFor="let contact for owner.contacts">-->
+      <!--{{contact}}-->
+    <!--</ion-label>-->
+
+  </ion-item>
+</ion-content>

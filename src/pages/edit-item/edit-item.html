@@ -1,0 +1,43 @@
+<!--
+  Generated template for the EditItemPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>editItem</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <button ion-button (click)="addImage()">Add image</button>
+
+  <ion-img  src="{{pic}}" *ngFor="let pic of transient.pics">
+
+  <ion-item>
+    <ion-label floating>Title</ion-label>
+    <ion-input [(ngModel)]="transient.title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Price</ion-label>
+    <ion-input [(ngModel)]="transient.price"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Description</ion-label>
+    <ion-input [(ngModel)]="transient.description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Vacant</ion-label>
+    <ion-input [(ngModel)]="transient.vacant"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Total slots</ion-label>
+    <ion-input [(ngModel)]="transient.slots"></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="editItem()">Save</button>
+</ion-content>

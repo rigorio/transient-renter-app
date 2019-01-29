@@ -18,10 +18,10 @@
       <ion-img src="{{ pic }}" *ngFor="let pic of transient.pics"></ion-img>
       {{transient.title}}
       <div class="item-note" item-end>
-        {{transient.reviews}}
+        $ {{transient.price}}
       </div>
       <div>
-        $ {{transient.price}}
+        {{transient.vacant}}/{{transient.slots}} available
         <br>
         {{transient.description}}
         <br>

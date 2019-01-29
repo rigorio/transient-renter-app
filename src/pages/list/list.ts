@@ -1,5 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {AlertController, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {HttpClient} from "@angular/common/http";
+import {Storage} from "@ionic/storage";
+import {HttpResponse} from "../HttpResponse";
+import {Host} from "../host";
+import {SelectItemPage} from "../select-item/select-item";
 
 @Component({
   selector: 'page-list',
@@ -10,96 +15,47 @@ export class ListPage {
   icons: string[];
   items: Array<{ title: string, note: string, icon: string }>;
   transients: Array<{
-    id: number, pics: string[], title: string, price: number, description: string,
-    slots: number, vacant: number, reviews: number[], ownerId: number
+    id: number,
+    title: string,
+    description: string,
+    pics: string[],
+    slots: number,
+    vacant: number,
+    price: number,
+    reviews: number[]
   }> = [];
-  owner: Array<{ name: string, contacts: string[], transientId: number[] }> = [];
+  owner: Array<{ id: number, email: string, name: string, contacts: string[] }> = [];
 
   keyword: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.init();
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public http: HttpClient,
+              private storage: Storage,
+              private loadingController: LoadingController,
+              private alertCtrl: AlertController
+  ) {
 
+    let loading = this.loadingController.create({content: "Fetching Items..."});
+    let url = Host.host + "/api/houses";
+    loading.present();
+    this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+      this.transients = response['message'];
+      console.log(this.transients);
+      loading.dismissAll();
+    });
 
   }
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
+    let items = [];
+    items.push(item);
     console.log(item);
-  }
-
-  private init() {
-// If we navigated to this page, we will have an item available as a nav param
-    this.transients.push({
-      id: 1,
-      pics: ['f', 'v'],
-      title: 'dog',
-      price: 500,
-      description: 'the quick brown fox jumped over the lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy me',
-      slots: 5,
-      vacant: 3,
-      reviews: [1, 3, 6, 5],
-      ownerId: 1
-    });
-
-    this.owner.push({
-      name: 'heyayayaya',
-      contacts: ['a', 'b'],
-      transientId: [1]
-    });
-
-    this.transients.push({
-      id: 1,
-      pics: ['f', 'v'],
-      title: 'dog',
-      price: 500,
-      description: 'the quick brown fox jumped over the lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy me',
-      slots: 5,
-      vacant: 3,
-      reviews: [1, 3, 6, 5],
-      ownerId: 1
-    });
-
-    this.owner.push({
-      name: 'heyayayaya',
-      contacts: ['a', 'b'],
-      transientId: [1]
-    });
-
-    this.transients.push({
-      id: 1,
-      pics: ['f', 'v'],
-      title: 'dog',
-      price: 500,
-      description: 'the quick brown fox jumped over the lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy me',
-      slots: 5,
-      vacant: 3,
-      reviews: [1, 3, 6, 5],
-      ownerId: 1
-    });
-
-    this.owner.push({
-      name: 'heyayayaya',
-      contacts: ['a', 'b'],
-      transientId: [1]
-    });
-
-    this.transients.push({
-      id: 1,
-      pics: ['f', 'v'],
-      title: 'dog',
-      price: 500,
-      description: 'the quick brown fox jumped over the lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy lazy me',
-      slots: 5,
-      vacant: 3,
-      reviews: [1, 3, 6, 5],
-      ownerId: 1
-    });
-
-    this.owner.push({
-      name: 'heyayayaya',
-      contacts: ['a', 'b'],
-      transientId: [1]
+    this.navCtrl.push(SelectItemPage,{
+      items
     });
   }
+
+
 }

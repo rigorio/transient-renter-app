@@ -12,6 +12,10 @@ import {MenuPage} from "../pages/menu/menu";
 import {SellPage} from "../pages/sell/sell";
 import {AccountPage} from "../pages/account/account";
 import {CreateItemPage} from "../pages/create-item/create-item";
+import {HttpClientModule} from "@angular/common/http";
+import {IonicStorageModule} from "@ionic/storage";
+import {SelectItemPage} from "../pages/select-item/select-item";
+import {EditItemPage} from "../pages/edit-item/edit-item";
 
 @NgModule({
   declarations: [
@@ -21,11 +25,15 @@ import {CreateItemPage} from "../pages/create-item/create-item";
     LoginPage,
     MenuPage,
     SellPage,
-    CreateItemPage
+    CreateItemPage,
+    SelectItemPage,
+    EditItemPage
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -35,7 +43,9 @@ import {CreateItemPage} from "../pages/create-item/create-item";
     LoginPage,
     MenuPage,
     SellPage,
-    CreateItemPage
+    CreateItemPage,
+    SelectItemPage,
+    EditItemPage
   ],
   providers: [
     StatusBar,

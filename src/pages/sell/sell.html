@@ -12,6 +12,23 @@
 
   <button ion-button (click)="createItem()">Add Listing</button>
 
+  <ion-list>
+    <button ion-item *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
+      <ion-icon [name]="transient.title" item-start></ion-icon>
+      <ion-img src="{{ pic }}" *ngFor="let pic of transient.pics"></ion-img>
+      {{transient.title}}
+      <div class="item-note" item-end>
+        $ {{transient.price}}
+      </div>
+      <div>
+        {{transient.vacant}}/{{transient.slots}} available
+        <br>
+        {{transient.description}}
+        <br>
+      </div>
+    </button>
+  </ion-list>
+
 
 
 
