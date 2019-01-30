@@ -17,7 +17,7 @@
   <ion-card *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
     <ion-card-header>
       <p>
-        {{transient.vacant}}/{{transient.slots}} available
+        {{transient.slots}} units available
       </p>
       <ion-card-title>
         {{transient.title}}

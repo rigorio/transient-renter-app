@@ -21,20 +21,10 @@ import {HttpResponse} from "../HttpResponse";
 export class CreateItemPage {
   item = true;
 
-  transients: Array<{
-    title: string,
-    description: string,
-    pics: string[],
-    slots: number,
-    vacant: number,
-    price: number,
-    reviews: number[]
-  }> = [];
   title: any;
   description: any;
   price: any;
   slots: any;
-  vacant: any;
   reviews: string[] = [];
 
   constructor(public navCtrl: NavController,
@@ -62,8 +52,7 @@ export class CreateItemPage {
     map.set('description', this.description);
     // map.set('pics', this.pics) TODO HOW DO I UPLOAD PICS LOL
     map.set('pics', pics);
-    map.set('slot', this.slots);
-    map.set('vacant', this.vacant);
+    map.set('slots', this.slots);
     map.set('price', this.price);
     map.set('reviews', this.reviews);
 

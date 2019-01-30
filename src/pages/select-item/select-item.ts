@@ -17,7 +17,6 @@ export class SelectItemPage {
     description: string,
     pics: string[],
     slots: number,
-    vacant: number,
     price: number,
     reviews: number[]
   };

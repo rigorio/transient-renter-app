@@ -21,7 +21,6 @@ export class ListPage {
     coverPic: string,
     pics: string[],
     slots: number,
-    vacant: number,
     price: number,
     reviews: number[]
   }> = [];

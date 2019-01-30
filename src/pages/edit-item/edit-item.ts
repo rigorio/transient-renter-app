@@ -19,7 +19,7 @@ import {HttpResponse} from "../HttpResponse";
   templateUrl: 'edit-item.html',
 })
 export class EditItemPage {
-  transient: { id: number; title: string; description: string; pics: string[]; slots: number; vacant: number; price: number; reviews: number[] };
+  transient: { id: number; title: string; description: string; pics: string[]; slots: number; price: number; reviews: number[] };
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -45,8 +45,7 @@ export class EditItemPage {
     map.set('description', this.transient.description);
     // map.set('pics', this.pics) TODO HOW DO I UPLOAD PICS LOL
     map.set('pics', pics);
-    map.set('slot', this.transient.slots);
-    map.set('vacant', this.transient.vacant);
+    map.set('slots', this.transient.slots);
     map.set('price', this.transient.price);
     map.set('reviews', this.transient.reviews);
     this.storage.get('irent-token').then(token => {
