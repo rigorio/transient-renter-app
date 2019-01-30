@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {TSMap} from "typescript-map";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -20,6 +20,7 @@ import {HttpResponse} from "../HttpResponse";
 })
 export class EditItemPage {
   transient: { id: number; title: string; description: string; pics: string[]; slots: number; vacant: number; price: number; reviews: number[] };
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public http: HttpClient,
@@ -35,7 +36,8 @@ export class EditItemPage {
   }
 
   editItem() {
-    let loading = this.loadingController.create({content:"Creating Item..."});
+    let loading = this.loadingController.create({content: "Creating Item..."});
+    loading.present();
     let map = new TSMap();
     let pics: string[] = [];
     map.set('id', this.transient.id);
@@ -47,15 +49,15 @@ export class EditItemPage {
     map.set('vacant', this.transient.vacant);
     map.set('price', this.transient.price);
     map.set('reviews', this.transient.reviews);
-    this.storage.get('irent-token').then(token=>{
-      loading.present();
+    this.storage.get('irent-token').then(token => {
       let url = Host.host + "/api/houses?token=" + token;
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
       };
-      this.http.put<HttpResponse>(url, map.toJSON(), httpOptions).pipe().toPromise().then(result=>{
+      this.http.put<HttpResponse>(url, map.toJSON(), httpOptions).pipe().toPromise().then(result => {
+        loading.dismissAll();
         let alert = this.alertCtrl.create({
           title: result['status'],
           subTitle: result['message'],
@@ -64,7 +66,6 @@ export class EditItemPage {
         // add loading
         alert.present();
       });
-      loading.dismissAll();
     })
   }
 

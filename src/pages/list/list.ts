@@ -18,6 +18,7 @@ export class ListPage {
     id: number,
     title: string,
     description: string,
+    coverPic: string,
     pics: string[],
     slots: number,
     vacant: number,
@@ -37,23 +38,20 @@ export class ListPage {
   ) {
 
     let loading = this.loadingController.create({content: "Fetching Items..."});
-    let url = Host.host + "/api/houses";
     loading.present();
+    let url = Host.host + "/api/houses";
     this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+      loading.dismissAll();
       this.transients = response['message'];
       console.log(this.transients);
-      loading.dismissAll();
     });
 
   }
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
-    let items = [];
-    items.push(item);
-    console.log(item);
     this.navCtrl.push(SelectItemPage,{
-      items
+      item
     });
   }
 

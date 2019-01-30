@@ -7,41 +7,55 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>selectItem</ion-title>
+    <ion-title>{{transient.title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-card>
+    <ion-img src="{{ pic }}" *ngFor="let pic of transient.pics"></ion-img>
+    <ion-card-header>
+      <p>$ {{transient.price}}</p>
+      <ion-card-title>{{transient.title}}</ion-card-title>
+    </ion-card-header>
 
-  <ion-item>
-
-    <ion-icon [name]="title" item-start></ion-icon>
-    <ion-img src="{{ pic }}" *ngFor="let pic of pics"></ion-img>
-    {{title}}
-    <ion-label class="item-note">
-      $ {{price}}
-    </ion-label>
-    <ion-label>
-      {{vacant}}/{{slots}} available
+    <ion-card-content>
+      <p>{{transient.description}}</p>
+      <p>Average Ratings: {{averageReview}}/5</p>
       <br>
-      {{description}}
-      <br>
-    </ion-label>
-    <ion-label>
-      {{averageReview}}
-    </ion-label>
+      <p>Available: {{transient.vacant}} units</p>
+    </ion-card-content>
+    <ion-card-content>
 
-    <ion-label>
-      Owner:
-    </ion-label>
-    <ion-label>
-      {{owner.name}}
-    </ion-label>
-    <!--<ion-label *ngFor="let contact for owner.contacts">-->
-      <!--{{contact}}-->
-    <!--</ion-label>-->
+      <ion-label>
+        Contact Details:
+      </ion-label>
+      <ion-label>
+        {{owner.name}}
+      </ion-label>
+      <ion-list *ngFor="let contact of owner.contacts">
+        {{contact}}
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-  </ion-item>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Make a reservation</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Select Date:</ion-label>
+        <ion-datetime [(ngModel)]="date"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Number of days:</ion-label>
+        <ion-input item-end></ion-input>
+      </ion-item>
+      <button ion-button (click)="book()">Book</button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

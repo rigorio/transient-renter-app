@@ -55,7 +55,7 @@ export class CreateItemPage {
   }
 
   createItem() {
-    let loading = this.loadingController.create({content:"Creating Item..."});
+    let loading = this.loadingController.create({content: "Creating Item..."});
     let map = new TSMap();
     let pics: string[] = [];
     map.set('title', this.title);
@@ -67,15 +67,16 @@ export class CreateItemPage {
     map.set('price', this.price);
     map.set('reviews', this.reviews);
 
-    this.storage.get('irent-token').then(token=>{
-    loading.present();
+    this.storage.get('irent-token').then(token => {
+      loading.present();
       let url = Host.host + "/api/houses?token=" + token;
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
       };
-      this.http.post<HttpResponse>(url, map.toJSON(), httpOptions).pipe().toPromise().then(result=>{
+      this.http.post<HttpResponse>(url, map.toJSON(), httpOptions).pipe().toPromise().then(result => {
+        loading.dismissAll();
         let alert = this.alertCtrl.create({
           title: result['status'],
           subTitle: result['message'],
@@ -84,7 +85,6 @@ export class CreateItemPage {
         // add loading
         alert.present();
       });
-      loading.dismissAll();
     })
   }
 }

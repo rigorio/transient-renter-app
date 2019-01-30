@@ -12,20 +12,38 @@
     <ion-label floating>Tap here to search</ion-label>
     <ion-input (change)="keyword"></ion-input>
   </ion-item>
-  <ion-list>
-    <button ion-item *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
-      <ion-icon [name]="transient.title" item-start></ion-icon>
-      <ion-img src="{{ pic }}" *ngFor="let pic of transient.pics"></ion-img>
-      {{transient.title}}
-      <div class="item-note" item-end>
-        $ {{transient.price}}
-      </div>
-      <div>
+
+
+  <ion-card *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
+    <ion-card-header>
+      <p>
         {{transient.vacant}}/{{transient.slots}} available
-        <br>
-        {{transient.description}}
-        <br>
-      </div>
-    </button>
-  </ion-list>
+      </p>
+      <ion-card-title>
+        {{transient.title}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{transient.description}}
+    </ion-card-content>
+  </ion-card>
+
+
+  <!--<ion-list>-->
+    <!--<button ion-item *ngFor="let transient of transients" (click)="itemTapped($event, transient)">-->
+      <!--<ion-icon [name]="transient.title" item-start></ion-icon>-->
+      <!--<ion-img src="{{ pic }}" *ngFor="let pic of transient.pics"></ion-img>-->
+      <!--{{transient.title}}-->
+      <!--<div class="item-note" item-end>-->
+        <!--$ {{transient.price}}-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--{{transient.vacant}}/{{transient.slots}} available-->
+        <!--<br>-->
+        <!--{{transient.description}}-->
+        <!--<br>-->
+      <!--</div>-->
+    <!--</button>-->
+  <!--</ion-list>-->
+
 </ion-content>

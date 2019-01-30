@@ -16,7 +16,7 @@
 <ion-content padding>
   <button ion-button (click)="addImage()">Add image</button>
 
-  <ion-img  src="{{pic}}" *ngFor="let pic of transient.pics">
+  <ion-img  src="{{pic}}" *ngFor="let pic of transient.pics"></ion-img>
 
   <ion-item>
     <ion-label floating>Title</ion-label>
@@ -40,4 +40,5 @@
   </ion-item>
 
   <button ion-button (click)="editItem()">Save</button>
+
 </ion-content>

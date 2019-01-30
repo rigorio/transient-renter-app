@@ -18,7 +18,7 @@ export class MyApp {
   owner: Array<{ id: number, email: string, name: string, contacts: string[] }> = [];
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public http: HttpClient, public storage: Storage) {
-    let token = 'c9fb5827-e683-4936-a799-9d973af6cdca';
+    let token = '7ea5f891-058e-4026-9d54-c3ae1e6563e2';
     storage.set('irent-token', token);
     storage.get("irent-token").then(token => {
       let url = Host.host + "/users/id?token=" + token;
