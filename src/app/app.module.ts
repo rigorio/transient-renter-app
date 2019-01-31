@@ -16,6 +16,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {IonicStorageModule} from "@ionic/storage";
 import {SelectItemPage} from "../pages/select-item/select-item";
 import {EditItemPage} from "../pages/edit-item/edit-item";
+import {ReservationsPage} from "../pages/reservations/reservations";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {EditItemPage} from "../pages/edit-item/edit-item";
     SellPage,
     CreateItemPage,
     SelectItemPage,
-    EditItemPage
+    EditItemPage,
+    ReservationsPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import {EditItemPage} from "../pages/edit-item/edit-item";
     SellPage,
     CreateItemPage,
     SelectItemPage,
-    EditItemPage
+    EditItemPage,
+    ReservationsPage
   ],
   providers: [
     StatusBar,

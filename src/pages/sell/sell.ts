@@ -40,8 +40,10 @@ export class SellPage {
   ) {
 
     storage.get("irent-token").then(token => {
+      console.log(token);
       let url = Host.host + "/api/account/houses?token=" + token;
       this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+        console.log(response);
         this.transients = response['message'];
       })
     });

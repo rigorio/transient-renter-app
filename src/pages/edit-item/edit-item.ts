@@ -20,6 +20,22 @@ import {HttpResponse} from "../HttpResponse";
 })
 export class EditItemPage {
   transient: { id: number; title: string; description: string; pics: string[]; slots: number; price: number; reviews: number[] };
+  reservations: Array<{
+    id: number,
+    userId: number,
+    houseId: number,
+    arrival: string,
+    departure: string,
+    name: string,
+    contacts: string[],
+    coverPic: string,
+    pics: string[],
+    title: string,
+    price: number,
+    description: string,
+    slots: number,
+    reviews: number[]
+  }>;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -29,6 +45,16 @@ export class EditItemPage {
               private alertCtrl: AlertController
   ) {
     this.transient = navParams.get("transient");
+    this.reservations = [];
+
+    this.storage.get('irent-token').then(token => {
+      let url = Host.host + "/api/reservations/users/" + this.transient.id + "?token=" + token;
+      this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+        console.log(response);
+        this.reservations = response['message'];
+      })
+    })
+
   }
 
   ionViewDidLoad() {
@@ -69,6 +95,33 @@ export class EditItemPage {
   }
 
   addImage() {
+
+  }
+
+  delete(reservation) {
+    let loading = this.loadingController.create({content: "Creating Item..."});
+    loading.present();
+    this.storage.get('irent-token').then(token => {
+      let url = Host.host + "/api/reservations/" + reservation.id + "?token=" + token;
+      this.http.delete(url).pipe().toPromise().then(response => {
+        loading.dismissAll();
+        let alert = this.alertCtrl.create({
+          title: response['status'],
+          subTitle: response['message'],
+          buttons: ['Ok']
+        });
+        // add loading
+        alert.present();
+      }).then(_ => {
+        this.storage.get('irent-token').then(token => {
+          let url = Host.host + "/api/reservations/users/" + this.transient.id + "?token=" + token;
+          this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+            console.log(response);
+            this.reservations = response['message'];
+          })
+        })
+      })
+    })
 
   }
 }

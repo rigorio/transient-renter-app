@@ -15,6 +15,8 @@ import {MenuPage} from "../menu/menu";
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  username: any;
+  password: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -24,6 +26,7 @@ export class LoginPage {
   }
 
   login() {
+    // TODO
     this.navCtrl.setRoot(MenuPage);
   }
 }

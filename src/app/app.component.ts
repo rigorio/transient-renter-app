@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
+import {LoadingController, Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
@@ -17,12 +17,21 @@ export class MyApp {
   rootPage = LoginPage;
   owner: Array<{ id: number, email: string, name: string, contacts: string[] }> = [];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public http: HttpClient, public storage: Storage) {
-    let token = '7ea5f891-058e-4026-9d54-c3ae1e6563e2';
+  constructor(public platform: Platform,
+              public statusBar: StatusBar,
+              public splashScreen: SplashScreen,
+              public http: HttpClient,
+              public storage: Storage,
+              public loadingController: LoadingController) {
+    let loading = loadingController.create({content: "Please wait..."});
+    loading.present();
+    let token = 'd5b1d4dc-5fef-4aa6-987c-fda26ce3fcd0';
     storage.set('irent-token', token);
     storage.get("irent-token").then(token => {
       let url = Host.host + "/users/id?token=" + token;
       this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+        loading.dismissAll();
+        console.log(response);
         storage.set('owner-id', response['message'])
       })
     });

@@ -49,8 +49,10 @@ export class ListPage {
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
+    let show = true;
     this.navCtrl.push(SelectItemPage,{
-      item
+      item,
+      show
     });
   }
 

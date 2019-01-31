@@ -14,27 +14,78 @@
 
 
 <ion-content padding>
-  <button ion-button (click)="addImage()">Add image</button>
+  <ion-card>
+    <button ion-button (click)="addImage()">Add image</button>
 
-  <ion-img  src="{{pic}}" *ngFor="let pic of transient.pics"></ion-img>
+    <ion-img src="{{pic}}" *ngFor="let pic of transient.pics"></ion-img>
 
-  <ion-item>
-    <ion-label floating>Title</ion-label>
-    <ion-input [(ngModel)]="transient.title"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Price</ion-label>
-    <ion-input [(ngModel)]="transient.price"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Description</ion-label>
-    <ion-input [(ngModel)]="transient.description"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Slots available</ion-label>
-    <ion-input [(ngModel)]="transient.slots"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label floating>Title</ion-label>
+      <ion-input [(ngModel)]="transient.title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Price</ion-label>
+      <ion-input [(ngModel)]="transient.price"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Description</ion-label>
+      <ion-input [(ngModel)]="transient.description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Slots available</ion-label>
+      <ion-input [(ngModel)]="transient.slots"></ion-input>
+    </ion-item>
 
-  <button ion-button (click)="editItem()">Save</button>
+    <button ion-button (click)="editItem()">Save</button>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Reservations
+    </ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          Name
+        </ion-col>
+        <ion-col>
+          Contacts
+        </ion-col>
+        <ion-col>
+          Arrival
+        </ion-col>
+        <ion-col>
+          Departure
+        </ion-col>
+        <ion-col>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let reservation of reservations">
+        <ion-col>
+          {{reservation.name}}
+        </ion-col>
+        <ion-col>
+          <ion-list *ngFor="let contact of reservation.contacts">
+            {{contact}}
+          </ion-list>
+        </ion-col>
+        <ion-col>
+          {{reservation.arrival}}
+        </ion-col>
+        <ion-col>
+          {{reservation.departure}}
+        </ion-col>
+        <ion-col>
+          <button class="delete" (click)="delete(reservation)" ion-button color="danger" clear icon-only>
+            <ion-icon name='trash'></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </ion-card>
+
 
 </ion-content>
