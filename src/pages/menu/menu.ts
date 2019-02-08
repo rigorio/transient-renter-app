@@ -22,9 +22,9 @@ export class MenuPage {
   pages: Array<{title: string, component: any}>;
 
 
-  constructor(public navCtrl: NavController,
-              public menu: MenuController,
+  constructor(public menu: MenuController,
               public navParams: NavParams) {
+
 
     this.pages = [
       { title: 'Listings', component: ListPage },

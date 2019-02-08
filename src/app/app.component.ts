@@ -5,8 +5,6 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
 import {Storage} from "@ionic/storage";
 import {HttpClient} from "@angular/common/http";
-import {HttpResponse} from "../pages/HttpResponse";
-import {Host} from "../pages/host";
 
 @Component({
   templateUrl: 'app.html'
@@ -23,18 +21,20 @@ export class MyApp {
               public http: HttpClient,
               public storage: Storage,
               public loadingController: LoadingController) {
-    let loading = loadingController.create({content: "Please wait..."});
-    loading.present();
-    let token = 'd5b1d4dc-5fef-4aa6-987c-fda26ce3fcd0';
-    storage.set('irent-token', token);
-    storage.get("irent-token").then(token => {
-      let url = Host.host + "/users/id?token=" + token;
-      this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
-        loading.dismissAll();
-        console.log(response);
-        storage.set('owner-id', response['message'])
-      })
-    });
+    storage.clear();
+    // let loading = loadingController.create({content: "Please wait..."});
+    // // loading.present();
+    // //     loading.dismissAll();
+    // storage.clear();
+    // let token = 'c79c240f-4d6b-4c5a-a455-1b6cebe5f90e';
+    // storage.set('irent-token', token);
+    // storage.get("irent-token").then(token => {
+    //   let url = Host.host + "/users/id?token=" + token;
+    //   this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+    //     console.log(response);
+    //     storage.set('owner-id', response['message'])
+    //   })
+    // });
     this.initializeApp();
   }
 

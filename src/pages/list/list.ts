@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {AlertController, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {AlertController, LoadingController, Nav, NavController, NavParams} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {Storage} from "@ionic/storage";
 import {HttpResponse} from "../HttpResponse";
@@ -19,7 +19,7 @@ export class ListPage {
     title: string,
     description: string,
     coverPic: string,
-    pics: string[],
+    location: string,
     slots: number,
     price: number,
     reviews: number[]
@@ -28,12 +28,13 @@ export class ListPage {
 
   keyword: any;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public http: HttpClient,
-              private storage: Storage,
-              private loadingController: LoadingController,
-              private alertCtrl: AlertController
+  constructor(
+    public nav: NavController,
+    public navParams: NavParams,
+    public http: HttpClient,
+    private storage: Storage,
+    private loadingController: LoadingController,
+    private alertCtrl: AlertController
   ) {
 
     let loading = this.loadingController.create({content: "Fetching Items..."});
@@ -42,7 +43,6 @@ export class ListPage {
     this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
       loading.dismissAll();
       this.transients = response['message'];
-      console.log(this.transients);
     });
 
   }
@@ -50,7 +50,7 @@ export class ListPage {
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
     let show = true;
-    this.navCtrl.push(SelectItemPage,{
+    this.nav.push(SelectItemPage, {
       item,
       show
     });

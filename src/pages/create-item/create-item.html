@@ -10,7 +10,17 @@
 
 <ion-content padding>
 
-  <button ion-button (click)="addImage()">Add image</button>
+  <button ion-button (click)="filepicker()">Add Image</button>
+
+  <!--<ion-item>-->
+    <!--<ion-label id="profile_image" stacked>Select Image</ion-label>-->
+    <!--<ion-input type="file" accept=".png, .jpg" (change)="selectFile($event)">-->
+      <!--Upload Image-->
+    <!--</ion-input>-->
+  <!--</ion-item>-->
+
+  <img src="{{coverPic}}" alt="no img selected" *ngIf="coverPic!=null"/>
+
 
   <ion-item>
     <ion-label floating>Title</ion-label>
@@ -19,6 +29,10 @@
   <ion-item>
     <ion-label floating>Price</ion-label>
     <ion-input [(ngModel)]="price"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Location</ion-label>
+    <ion-input [(ngModel)]="location"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>Description</ion-label>
@@ -30,9 +44,6 @@
   </ion-item>
 
   <button ion-button (click)="createItem()">Add Item</button>
-
-
-
 
 
 </ion-content>

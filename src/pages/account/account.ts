@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
-import {LoadingController, NavController} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {LoadingController, Nav, NavController} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {Storage} from "@ionic/storage";
 import {ReservationsPage} from "../reservations/reservations";
+import {LoginPage} from "../login/login";
 
 
 @Component({
@@ -10,32 +11,35 @@ import {ReservationsPage} from "../reservations/reservations";
   templateUrl: 'account.html'
 })
 export class AccountPage {
+
   search: any;
 
-  constructor(public navCtrl: NavController,
-              public storage: Storage,
-              public http: HttpClient,
-              public loadingController: LoadingController) {
+  constructor(
+    public nav: NavController,
+    public storage: Storage,
+    public http: HttpClient,
+    public loadingController: LoadingController) {
 
   }
 
   logout() {
-/*    let loading = this.loadingController.create({content:"Logging out..."});
-    loading.present();
-    this.storage.get("irent-token").then(token => {
-      let url = Host.host + "/users/logout?token=" + token;
-      this.http.get<string>(url).pipe().toPromise().then(_ => {
-        this.storage.clear().then(r => {
-          loading.dismissAll();
-          this.navCtrl.setRoot(LoginPage);
-        })
-      })
-    })*/
+    /*    let loading = this.loadingController.create({content:"Logging out..."});
+        loading.present();
+        this.storage.get("irent-token").then(token => {
+          let url = Host.host + "/users/logout?token=" + token;
+          this.http.get<string>(url).pipe().toPromise().then(_ => {
+            this.storage.clear().then(r => {
+              loading.dismissAll();
+              this.navCtrl.setRoot(LoginPage);
+            })
+          })
+        })*/
+    this.storage.clear().then(_ => this.nav.setRoot(LoginPage))
   }
 
   viewReservations() {
     console.log("ha");
-    this.navCtrl.push(ReservationsPage);
+    this.nav.push(ReservationsPage);
 
   }
 

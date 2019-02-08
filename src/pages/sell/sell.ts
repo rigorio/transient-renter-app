@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {AlertController, IonicPage, LoadingController, Nav, NavController, NavParams} from 'ionic-angular';
 import {CreateItemPage} from "../create-item/create-item";
 import {HttpClient} from "@angular/common/http";
 import {Storage} from "@ionic/storage";
@@ -7,31 +7,24 @@ import {Host} from "../host";
 import {HttpResponse} from "../HttpResponse";
 import {EditItemPage} from "../edit-item/edit-item";
 
-/**
- * Generated class for the SellPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-sell',
   templateUrl: 'sell.html',
 })
 export class SellPage {
+
   transients: Array<{
     id: number,
     title: string,
     description: string,
-    pics: string[],
+    coverPic: string,
+    location: string,
     slots: number,
-    vacant: number,
     price: number,
     reviews: number[]
   }> = [];
 
-  constructor(public navCtrl: NavController,
+  constructor(public nav: NavController,
               public navParams: NavParams,
               public http: HttpClient,
               private storage: Storage,
@@ -40,10 +33,8 @@ export class SellPage {
   ) {
 
     storage.get("irent-token").then(token => {
-      console.log(token);
       let url = Host.host + "/api/account/houses?token=" + token;
       this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
-        console.log(response);
         this.transients = response['message'];
       })
     });
@@ -56,11 +47,11 @@ export class SellPage {
   }
 
   createItem() {
-    this.navCtrl.push(CreateItemPage);
+    this.nav.push(CreateItemPage);
   }
 
   itemTapped($event, transient) {
-    this.navCtrl.push(EditItemPage, {
+    this.nav.push(EditItemPage, {
       transient
     });
   }

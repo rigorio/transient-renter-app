@@ -1,18 +1,16 @@
-import {Component} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {AlertController, IonicPage, LoadingController, Nav, NavController, NavParams} from 'ionic-angular';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Storage} from "@ionic/storage";
 import {HttpResponse} from "../HttpResponse";
 import {Host} from "../host";
 import {TSMap} from "typescript-map";
 
-@IonicPage()
 @Component({
   selector: 'page-select-item',
   templateUrl: 'select-item.html',
 })
 export class SelectItemPage {
-
   show: boolean = true;
 
   transient: {
@@ -20,7 +18,7 @@ export class SelectItemPage {
     title: string,
     description: string,
     coverPic: string,
-    pics: string[],
+    location: string,
     slots: number,
     price: number,
     reviews: number[]
@@ -30,7 +28,7 @@ export class SelectItemPage {
   departure: any;
   arrival: any;
 
-  constructor(public navCtrl: NavController,
+  constructor(public nav: NavController,
               public navParams: NavParams,
               public http: HttpClient,
               private storage: Storage,

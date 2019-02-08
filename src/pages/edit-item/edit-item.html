@@ -15,10 +15,14 @@
 
 <ion-content padding>
   <ion-card>
-    <button ion-button (click)="addImage()">Add image</button>
+    <ion-item>
+      <ion-label id="profile_image" stacked>Select Image</ion-label>
+      <ion-input type="file" accept=".png, .jpg" (change)="selectFile($event)">
+        Upload Image
+      </ion-input>
+    </ion-item>
 
-    <ion-img src="{{pic}}" *ngFor="let pic of transient.pics"></ion-img>
-
+    <img src="{{coverPic}}" alt="no img selected" *ngIf="coverPic!=null"/>
     <ion-item>
       <ion-label floating>Title</ion-label>
       <ion-input [(ngModel)]="transient.title"></ion-input>
@@ -28,8 +32,12 @@
       <ion-input [(ngModel)]="transient.price"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label floating>Location</ion-label>
+      <ion-input [(ngModel)]="transient.location"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label floating>Description</ion-label>
-      <ion-input [(ngModel)]="transient.description"></ion-input>
+      <ion-textarea [(ngModel)]="transient.description"></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label floating>Slots available</ion-label>
@@ -78,7 +86,7 @@
           {{reservation.departure}}
         </ion-col>
         <ion-col>
-          <button class="delete" (click)="delete(reservation)" ion-button color="danger" clear icon-only>
+          <button class="icon" (click)="delete(reservation)" ion-button color="danger" clear icon-only>
             <ion-icon name='trash'></ion-icon>
           </button>
         </ion-col>

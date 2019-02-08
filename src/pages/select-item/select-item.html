@@ -15,25 +15,32 @@
 
 <ion-content padding>
   <ion-card>
-    <ion-img src="{{ pic }}" *ngFor="let pic of transient.pics"></ion-img>
+    <img src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
     <ion-card-header>
       <p>$ {{transient.price}}</p>
       <ion-card-title>{{transient.title}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
+      <h6>{{transient.location}}</h6>
       <p>{{transient.description}}</p>
       <p>Average Ratings: {{averageReview}}/5</p>
       <br>
       <p>Available: {{transient.slots}} units</p>
     </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
     <ion-card-content>
 
       <ion-label>
         Contact Details:
       </ion-label>
       <ion-label>
-        {{owner.name}}
+        <b>
+          {{owner.name}}
+        </b>
       </ion-label>
       <ion-list *ngFor="let contact of owner.contacts">
         {{contact}}
@@ -48,12 +55,12 @@
 
     <ion-card-content>
       <ion-item>
-        <ion-label>From: </ion-label>
-        <ion-datetime [(ngModel)]="arrival"></ion-datetime>
+        <ion-label>From:</ion-label>
+        <ion-datetime min="2019" max="2099-10-31" [(ngModel)]="arrival"></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label>To: </ion-label>
-        <ion-datetime [(ngModel)]="departure"></ion-datetime>
+        <ion-label>To:</ion-label>
+        <ion-datetime min="2019" max="2099-10-31" [(ngModel)]="departure"></ion-datetime>
       </ion-item>
       <button ion-button (click)="book()">Book</button>
     </ion-card-content>

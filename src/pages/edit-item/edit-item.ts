@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {AlertController, IonicPage, LoadingController, Nav, NavController, NavParams} from 'ionic-angular';
 import {TSMap} from "typescript-map";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Storage} from "@ionic/storage";
 import {Host} from "../host";
 import {HttpResponse} from "../HttpResponse";
+import {SellPage} from "../sell/sell";
 
 /**
  * Generated class for the EditItemPage page.
@@ -13,13 +14,22 @@ import {HttpResponse} from "../HttpResponse";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+
 @Component({
   selector: 'page-edit-item',
   templateUrl: 'edit-item.html',
 })
 export class EditItemPage {
-  transient: { id: number; title: string; description: string; pics: string[]; slots: number; price: number; reviews: number[] };
+  transient: {
+    id: number;
+    title: string;
+    description: string;
+    coverPic: string;
+    location: string;
+    slots: number;
+    price: number;
+    reviews: number[]
+  };
   reservations: Array<{
     id: number,
     userId: number,
@@ -29,15 +39,15 @@ export class EditItemPage {
     name: string,
     contacts: string[],
     coverPic: string,
-    pics: string[],
+    location: string,
     title: string,
     price: number,
     description: string,
     slots: number,
     reviews: number[]
   }>;
-
-  constructor(public navCtrl: NavController,
+  coverPic: any;
+  constructor(public nav: NavController,
               public navParams: NavParams,
               public http: HttpClient,
               private storage: Storage,
@@ -62,17 +72,16 @@ export class EditItemPage {
   }
 
   editItem() {
-    let loading = this.loadingController.create({content: "Creating Item..."});
+    let loading = this.loadingController.create({content: "Saving Item..."});
     loading.present();
     let map = new TSMap();
-    let pics: string[] = [];
     map.set('id', this.transient.id);
+    map.set('coverPic', this.coverPic);
     map.set('title', this.transient.title);
-    map.set('description', this.transient.description);
-    // map.set('pics', this.pics) TODO HOW DO I UPLOAD PICS LOL
-    map.set('pics', pics);
-    map.set('slots', this.transient.slots);
+    map.set('location', this.transient.location);
     map.set('price', this.transient.price);
+    map.set('description', this.transient.description);
+    map.set('slots', this.transient.slots);
     map.set('reviews', this.transient.reviews);
     this.storage.get('irent-token').then(token => {
       let url = Host.host + "/api/houses?token=" + token;
@@ -90,7 +99,7 @@ export class EditItemPage {
         });
         // add loading
         alert.present();
-      });
+      }).then(_ => this.nav.setRoot(SellPage));
     })
   }
 
@@ -123,5 +132,35 @@ export class EditItemPage {
       })
     })
 
+  }
+  file: any;
+
+  selectFile(event) {
+    this.file = event.target.files[0];
+    console.log(this.file);
+    let loading = this.loadingController.create({content: "Please wait..."});
+    loading.present();
+    this.getToken().then(token => {
+      let url = Host.host + "/api/images?token=" + token;
+      let formData = new FormData();
+      formData.append('file', this.file);
+      this.http.post(url, formData).pipe().toPromise().then(response => {
+        console.log(response['message']);
+        console.log(response);
+        loading.dismissAll();
+        this.coverPic = Host.host + "/api/images" + response['message'];
+        console.log(this.coverPic);
+        let alert = this.alertCtrl.create({
+          title: response['status'],
+          subTitle: response['message'],
+          buttons: ['Ok']
+        });
+        // add loading
+        alert.present();
+      });
+    });
+  }
+  private getToken() {
+    return this.storage.get("irent-token");
   }
 }

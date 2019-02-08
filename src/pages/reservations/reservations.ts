@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {AlertController, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {AlertController, LoadingController, Nav, NavController, NavParams} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {Storage} from "@ionic/storage";
 import {Host} from "../host";
@@ -20,7 +20,7 @@ export class ReservationsPage {
     name: string,
     contacts: string[],
     coverPic: string,
-    pics: string[],
+    location: string,
     title: string,
     price: number,
     description: string,
@@ -28,7 +28,7 @@ export class ReservationsPage {
     reviews: number[]
   }>;
 
-  constructor(public navCtrl: NavController,
+  constructor(public nav: NavController,
               public navParams: NavParams,
               public http: HttpClient,
               private storage: Storage,
@@ -83,7 +83,7 @@ export class ReservationsPage {
       title: string,
       description: string,
       coverPic: string,
-      pics: string[],
+      location: string,
       slots: number,
       price: number,
       reviews: number[]
@@ -93,13 +93,13 @@ export class ReservationsPage {
       title: reservation.title,
       description: reservation.description,
       coverPic: reservation.coverPic,
-      pics: reservation.pics,
+      location: reservation.location,
       slots: reservation.slots,
       price: reservation.price,
       reviews: reservation.reviews
     };
     let show = false;
-    this.navCtrl.push(SelectItemPage, {
+    this.nav.push(SelectItemPage, {
       item, show
     });
   }
