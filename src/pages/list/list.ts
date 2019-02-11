@@ -5,6 +5,7 @@ import {Storage} from "@ionic/storage";
 import {HttpResponse} from "../HttpResponse";
 import {Host} from "../host";
 import {SelectItemPage} from "../select-item/select-item";
+import {Transient} from "../create-item/Transient";
 
 @Component({
   selector: 'page-list',
@@ -14,19 +15,10 @@ export class ListPage {
   selectedItem: any;
   icons: string[];
   items: Array<{ title: string, note: string, icon: string }>;
-  transients: Array<{
-    id: number,
-    title: string,
-    description: string,
-    coverPic: string,
-    location: string,
-    slots: number,
-    price: number,
-    reviews: number[]
-  }> = [];
+  transients: Transient[] = [];
   owner: Array<{ id: number, email: string, name: string, contacts: string[] }> = [];
 
-  keyword: any;
+  keyword: string;
 
   constructor(
     public nav: NavController,
@@ -57,4 +49,28 @@ export class ListPage {
   }
 
 
+  search() {
+    let loading = this.loadingController.create({content: "Loading..."});
+    console.log(this.keyword);
+    let url = Host.host + "/api/houses";
+    loading.present();
+    this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+      loading.dismissAll();
+      this.transients = response['message'];
+    }).then(_ => {
+      if (this.keyword.length > 0) {
+        this.transients = this.transients.filter(transient => {
+          return this.lc(transient.title).includes(this.lc(this.keyword)) ||
+            this.lc(transient.country).includes(this.lc(this.keyword)) ||
+            this.lc(transient.city).includes(this.lc(this.keyword)) ||
+            this.lc(transient.state).includes(this.lc(this.keyword)) ||
+            this.lc(transient.street).includes(this.lc(this.keyword))
+        });
+      }
+    });
+  }
+
+  lc(s: string) {
+    return s.toLowerCase();
+  }
 }

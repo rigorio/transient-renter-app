@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button menuToggle *ngIf="!item ">
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -10,14 +10,14 @@
 
 <ion-content padding>
 
-  <button ion-button (click)="filepicker()">Add Image</button>
+  <!--<button ion-button (click)="filepicker()">Add Image</button>-->
 
-  <!--<ion-item>-->
-    <!--<ion-label id="profile_image" stacked>Select Image</ion-label>-->
-    <!--<ion-input type="file" accept=".png, .jpg" (change)="selectFile($event)">-->
-      <!--Upload Image-->
-    <!--</ion-input>-->
-  <!--</ion-item>-->
+  <ion-item>
+    <ion-label id="profile_image" stacked>Select Image</ion-label>
+    <ion-input type="file" accept=".png, .jpg" (change)="selectFile($event)">
+      Upload Image
+    </ion-input>
+  </ion-item>
 
   <img src="{{coverPic}}" alt="no img selected" *ngIf="coverPic!=null"/>
 
@@ -26,22 +26,72 @@
     <ion-label floating>Title</ion-label>
     <ion-input [(ngModel)]="title"></ion-input>
   </ion-item>
+
+
+  <ion-item>
+    <ion-label>Property Type</ion-label>
+    <ion-select [(ngModel)]="propertyType">
+      <ion-option>Rooms</ion-option>
+      <ion-option>House</ion-option>
+      <ion-option>Apartment</ion-option>
+      <ion-option>Condominium</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Street</ion-label>
+    <ion-input [(ngModel)]="street"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>City</ion-label>
+    <ion-input [(ngModel)]="city"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>State</ion-label>
+    <ion-input [(ngModel)]="state"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Country</ion-label>
+    <ion-input [(ngModel)]="country"></ion-input>
+  </ion-item>
+
   <ion-item>
     <ion-label floating>Price</ion-label>
-    <ion-input [(ngModel)]="price"></ion-input>
+    <ion-input type="number" [(ngModel)]="price"></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label floating>Location</ion-label>
-    <ion-input [(ngModel)]="location"></ion-input>
-  </ion-item>
+
   <ion-item>
     <ion-label floating>Description</ion-label>
     <ion-textarea [(ngModel)]="description"></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label floating>Slots available</ion-label>
-    <ion-input [(ngModel)]="slots"></ion-input>
+    <ion-input type="number" [(ngModel)]="slots"></ion-input>
   </ion-item>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label floating>Amenities</ion-label>
+        <ion-input [(ngModel)]="amenity"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <button class="baton" (click)="addAmenity(amenity)" ion-button color="secondary">
+        Add Amenity
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let amenity of amenities" class="login-button">
+    <ion-list>
+      <button class="login-button" ion-item (click)="deleteAmenity(amenity)">
+        {{amenity}}
+        <ion-icon name="close" item-end></ion-icon>
+      </button>
+    </ion-list>
+  </ion-row>
+
 
   <button ion-button (click)="createItem()">Add Item</button>
 

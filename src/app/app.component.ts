@@ -5,6 +5,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
 import {Storage} from "@ionic/storage";
 import {HttpClient} from "@angular/common/http";
+import {MenuPage} from "../pages/menu/menu";
 
 @Component({
   templateUrl: 'app.html'
@@ -12,7 +13,8 @@ import {HttpClient} from "@angular/common/http";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage = LoginPage;
+  // rootPage = LoginPage;
+  rootPage = MenuPage;
   owner: Array<{ id: number, email: string, name: string, contacts: string[] }> = [];
 
   constructor(public platform: Platform,
@@ -22,6 +24,7 @@ export class MyApp {
               public storage: Storage,
               public loadingController: LoadingController) {
     storage.clear();
+    storage.set('irent-token', '7debd223-cbd1-487c-888b-44f1314612c8');
     // let loading = loadingController.create({content: "Please wait..."});
     // // loading.present();
     // //     loading.dismissAll();

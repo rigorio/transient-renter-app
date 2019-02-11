@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>{{transient.title}}</ion-title>
   </ion-navbar>
 
@@ -17,36 +17,37 @@
   <ion-card>
     <img src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
     <ion-card-header>
-      <p>$ {{transient.price}}</p>
       <ion-card-title>{{transient.title}}</ion-card-title>
+      <p>₱ {{transient.price}}</p>
     </ion-card-header>
 
     <ion-card-content>
-      <h6>{{transient.location}}</h6>
       <p>{{transient.description}}</p>
       <p>Average Ratings: {{averageReview}}/5</p>
-      <br>
       <p>Available: {{transient.slots}} units</p>
     </ion-card-content>
 
   </ion-card>
 
   <ion-card>
+    <ion-card-header>Location</ion-card-header>
     <ion-card-content>
-
-      <ion-label>
-        Contact Details:
-      </ion-label>
-      <ion-label>
-        <b>
-          {{owner.name}}
-        </b>
-      </ion-label>
-      <ion-list *ngFor="let contact of owner.contacts">
-        {{contact}}
-      </ion-list>
+      {{transient.street}},
+      {{transient.city}},
+      {{transient.state}},
+      {{transient.country}}
     </ion-card-content>
   </ion-card>
+
+  <ion-card>
+    <ion-card-header>Amenities</ion-card-header>
+    <ion-card-content>
+      <ion-label *ngFor="let amenity of transient.amenities">
+        {{amenity}}
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
+
 
   <ion-card *ngIf="show">
     <ion-card-header>
@@ -63,6 +64,23 @@
         <ion-datetime min="2019" max="2099-10-31" [(ngModel)]="departure"></ion-datetime>
       </ion-item>
       <button ion-button (click)="book()">Book</button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+
+      <ion-label>
+        Contact Details:
+      </ion-label>
+      <ion-label>
+        <b>
+          {{owner.name}}
+        </b>
+      </ion-label>
+      <ion-list *ngFor="let contact of owner.contacts">
+        {{contact}}
+      </ion-list>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color = "primary">
     <ion-title>editItem</ion-title>
   </ion-navbar>
 
@@ -22,29 +22,82 @@
       </ion-input>
     </ion-item>
 
+
     <img src="{{coverPic}}" alt="no img selected" *ngIf="coverPic!=null"/>
+
+
     <ion-item>
       <ion-label floating>Title</ion-label>
       <ion-input [(ngModel)]="transient.title"></ion-input>
     </ion-item>
+
+
+    <ion-item>
+      <ion-label>Property Type</ion-label>
+      <ion-select [(ngModel)]="transient.propertyType">
+        <ion-option>Rooms</ion-option>
+        <ion-option>House</ion-option>
+        <ion-option>Apartment</ion-option>
+        <ion-option>Condominium</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Street</ion-label>
+      <ion-input [(ngModel)]="transient.street"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>City</ion-label>
+      <ion-input [(ngModel)]="transient.city"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>State</ion-label>
+      <ion-input [(ngModel)]="transient.state"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Country</ion-label>
+      <ion-input [(ngModel)]="transient.country"></ion-input>
+    </ion-item>
+
     <ion-item>
       <ion-label floating>Price</ion-label>
-      <ion-input [(ngModel)]="transient.price"></ion-input>
+      <ion-input type="number" [(ngModel)]="transient.price"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label floating>Location</ion-label>
-      <ion-input [(ngModel)]="transient.location"></ion-input>
-    </ion-item>
+
     <ion-item>
       <ion-label floating>Description</ion-label>
       <ion-textarea [(ngModel)]="transient.description"></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label floating>Slots available</ion-label>
-      <ion-input [(ngModel)]="transient.slots"></ion-input>
+      <ion-input type="number" [(ngModel)]="transient.slots"></ion-input>
     </ion-item>
 
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Amenities</ion-label>
+          <ion-input [(ngModel)]="amenity"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <button class="baton" (click)="addAmenity(amenity)" ion-button color="secondary">
+          Add Amenity
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let amenity of transient.amenities" class="login-button">
+      <ion-list>
+        <button class="login-button" ion-item (click)="deleteAmenity(amenity)">
+          {{amenity}}
+          <ion-icon name="close" item-end></ion-icon>
+        </button>
+      </ion-list>
+    </ion-row>
+
     <button ion-button (click)="editItem()">Save</button>
+    <button ion-button (click)="deleteItem()" color="danger" float="right">Delete</button>
   </ion-card>
 
   <ion-card>

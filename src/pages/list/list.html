@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -10,23 +10,31 @@
 <ion-content>
   <ion-item>
     <ion-label floating>Tap here to search</ion-label>
-    <ion-input (change)="keyword"></ion-input>
+    <ion-input [(ngModel)]="keyword" (change)="search()"></ion-input>
   </ion-item>
 
 
-  <ion-card *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
-    <img src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
-    <ion-card-header>
-      <p>
-        {{transient.slots}} units available
-      </p>
-      <ion-card-title>
-        {{transient.title}}
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      {{transient.location}}
-    </ion-card-content>
+  <ion-card class="ioncard" *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
+    <div class="clearfix float-my-children">
+      <div class="frame">
+        <span class="helper"></span>
+        <img class="maximg" src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
+      </div>
+      <div>
+        <ion-card-header>
+          <p>
+
+            {{transient.country}}
+          </p>
+          <ion-card-title>
+            {{transient.title}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+
+        </ion-card-content>
+      </div>
+    </div>
   </ion-card>
 
 

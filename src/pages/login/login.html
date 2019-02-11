@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Login</ion-title>
   </ion-navbar>
 
@@ -25,43 +25,11 @@
       <ion-input type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
 
-    <button ion-button (click)="login()">Login</button>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>Registration</ion-card-header>
-    <ion-item>
-      <ion-label floating>Name</ion-label>
-      <ion-input [(ngModel)]="registrantName"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input [(ngModel)]="registrantEmail"></ion-input>
-    </ion-item>
-
-
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="registrantPassword"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Contact 1</ion-label>
-      <ion-input [(ngModel)]="contact1"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Contact 2</ion-label>
-      <ion-input [(ngModel)]="contact2"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Contact 3</ion-label>
-      <ion-input [(ngModel)]="contact3"></ion-input>
-    </ion-item>
-
-    <button ion-button (click)="register()">Register</button>
+    <br>
+    <button class="login-button" ion-button (click)="login()">Login</button>
+    <br>
+    <br>
+    <button class="login-button" ion-button (click)="register()">Register</button>
   </ion-card>
 
 </ion-content>

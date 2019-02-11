@@ -6,6 +6,8 @@ import {Storage} from "@ionic/storage";
 import {Host} from "../host";
 import {HttpResponse} from "../HttpResponse";
 import {SellPage} from "../sell/sell";
+import {Reservations} from "../create-item/Reservations";
+import {Transient} from "../create-item/Transient";
 
 /**
  * Generated class for the EditItemPage page.
@@ -20,33 +22,10 @@ import {SellPage} from "../sell/sell";
   templateUrl: 'edit-item.html',
 })
 export class EditItemPage {
-  transient: {
-    id: number;
-    title: string;
-    description: string;
-    coverPic: string;
-    location: string;
-    slots: number;
-    price: number;
-    reviews: number[]
-  };
-  reservations: Array<{
-    id: number,
-    userId: number,
-    houseId: number,
-    arrival: string,
-    departure: string,
-    name: string,
-    contacts: string[],
-    coverPic: string,
-    location: string,
-    title: string,
-    price: number,
-    description: string,
-    slots: number,
-    reviews: number[]
-  }>;
+  transient: Transient;
+  reservations: Reservations[];
   coverPic: any;
+
   constructor(public nav: NavController,
               public navParams: NavParams,
               public http: HttpClient,
@@ -55,6 +34,8 @@ export class EditItemPage {
               private alertCtrl: AlertController
   ) {
     this.transient = navParams.get("transient");
+    this.coverPic = this.transient.coverPic;
+    // this.transient.amenities = [];
     this.reservations = [];
 
     this.storage.get('irent-token').then(token => {
@@ -78,11 +59,16 @@ export class EditItemPage {
     map.set('id', this.transient.id);
     map.set('coverPic', this.coverPic);
     map.set('title', this.transient.title);
-    map.set('location', this.transient.location);
+    map.set('propertyType', this.transient.propertyType);
+    map.set('street', this.transient.street);
+    map.set('city', this.transient.city);
+    map.set('state', this.transient.state);
+    map.set('country', this.transient.country);
     map.set('price', this.transient.price);
     map.set('description', this.transient.description);
     map.set('slots', this.transient.slots);
     map.set('reviews', this.transient.reviews);
+    map.set('amenities', this.transient.amenities);
     this.storage.get('irent-token').then(token => {
       let url = Host.host + "/api/houses?token=" + token;
       const httpOptions = {
@@ -133,7 +119,9 @@ export class EditItemPage {
     })
 
   }
+
   file: any;
+  amenity: string = "";
 
   selectFile(event) {
     this.file = event.target.files[0];
@@ -160,7 +148,49 @@ export class EditItemPage {
       });
     });
   }
+
   private getToken() {
     return this.storage.get("irent-token");
+  }
+
+  deleteItem() {
+    this.getToken().then(token => {
+
+      let url = Host.host + "/api/houses/" + this.transient.id + "?token=" + token;
+      this.http.delete(url).pipe().toPromise().then(response => {
+        let alert = this.alertCtrl.create({
+          title: response['status'],
+          subTitle: response['message'],
+          buttons: ['Ok']
+        });
+        // add loading
+        alert.present();
+        this.nav.setRoot(SellPage);
+      });
+
+    });
+
+  }
+
+  addAmenity(amenity: string) {
+    if (amenity == null || amenity.length < 4) {
+      let alert = this.alertCtrl.create({
+        title: "Must be at least 4 characters",
+        buttons: ['Ok']
+      });
+      // add loading
+      alert.present();
+      return;
+    }
+    console.log(amenity);
+    this.transient.amenities.push(amenity);
+    console.log(this.transient.amenities);
+    this.amenity = "";
+
+  }
+
+  deleteAmenity(amenity) {
+    let index = this.transient.amenities.indexOf(amenity);
+    this.transient.amenities.splice(index, 1);
   }
 }

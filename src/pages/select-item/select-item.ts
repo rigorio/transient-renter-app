@@ -5,6 +5,7 @@ import {Storage} from "@ionic/storage";
 import {HttpResponse} from "../HttpResponse";
 import {Host} from "../host";
 import {TSMap} from "typescript-map";
+import {Transient} from "../create-item/Transient";
 
 @Component({
   selector: 'page-select-item',
@@ -13,16 +14,7 @@ import {TSMap} from "typescript-map";
 export class SelectItemPage {
   show: boolean = true;
 
-  transient: {
-    id: number,
-    title: string,
-    description: string,
-    coverPic: string,
-    location: string,
-    slots: number,
-    price: number,
-    reviews: number[]
-  };
+  transient: Transient;
   averageReview: number = 0;
   owner: { id: number, email: string, name: string, contacts: string[] };
   departure: any;

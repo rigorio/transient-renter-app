@@ -6,6 +6,7 @@ import {Storage} from "@ionic/storage";
 import {Host} from "../host";
 import {HttpResponse} from "../HttpResponse";
 import {EditItemPage} from "../edit-item/edit-item";
+import {Transient} from "../create-item/Transient";
 
 @Component({
   selector: 'page-sell',
@@ -13,16 +14,7 @@ import {EditItemPage} from "../edit-item/edit-item";
 })
 export class SellPage {
 
-  transients: Array<{
-    id: number,
-    title: string,
-    description: string,
-    coverPic: string,
-    location: string,
-    slots: number,
-    price: number,
-    reviews: number[]
-  }> = [];
+  transients: Transient[];
 
   constructor(public nav: NavController,
               public navParams: NavParams,

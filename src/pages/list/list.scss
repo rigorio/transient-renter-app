@@ -1,3 +1,48 @@
 page-list {
 
 }
+
+.img-size {
+  height: 40px;
+  width: 40px;
+}
+
+/* tell the container's children to float left: */
+.float-my-children > * {
+  float: left;
+  margin-right: 5px;
+}
+
+/* this is called a clearfix. it makes sure that the container's children floats are cleared, without using extra markup */
+
+.clearfix {
+  *zoom: 1 /* for IE */
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.maximg {
+  max-width:100%;
+  max-height:100%;
+  vertical-align: middle;
+}
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.frame {
+  max-width: 80px;
+}
+
+.ioncard {
+  max-height: 100px;
+}

@@ -6,6 +6,7 @@ import {Host} from "../host";
 import {TSMap} from "typescript-map";
 import {HttpResponse} from "../HttpResponse";
 import {Storage} from "@ionic/storage";
+import {RegisterPage} from "../register/register";
 
 
 @Component({
@@ -15,19 +16,15 @@ import {Storage} from "@ionic/storage";
 export class LoginPage {
   username: any;
   password: any;
-  registrantName: any;
-  registrantEmail: any;
-  registrantPassword: any;
-  contact1: any;
-  contact2: any;
-  contact3: any;
+
 
   constructor(public nav: NavController,
               public storage: Storage,
               private http: HttpClient,
-              public navParams: NavParams,
               private loadingController: LoadingController,
               private alertCtrl: AlertController) {
+
+
   }
 
   ionViewDidLoad() {
@@ -36,8 +33,45 @@ export class LoginPage {
 
   login() {
     let loading = this.loadingController.create({content: "Logging in..."});
+
+    if (this.username == null || this.password == null) {
+      let alert = this.alertCtrl.create({
+        title: "Username or password cannot be blank",
+        buttons: ['Ok']
+      });
+      // add loading
+      alert.present();
+      return;
+    }
+
+    console.log("ha");
     loading.present();
-    // TODO
+    this.fetchLogin().pipe().toPromise().then(response => {
+      loading.dismissAll();
+
+      let responseElement = response['status'];
+      console.log(responseElement);
+      let b = responseElement == "Success";
+      console.log(b);
+      if (b) {
+        this.storage.set('irent-token', response['message']).then(_ => {
+          this.nav.setRoot(MenuPage);
+        });
+      } else {
+        let alert = this.alertCtrl.create({
+          title: response['status'],
+          message: response['message'],
+          buttons: ['Ok']
+        });
+        // add loading
+        alert.present();
+      }
+
+    })
+
+  }
+
+  fetchLogin() {
     let map = new TSMap();
     map.set('email', this.username);
     map.set('password', this.password);
@@ -48,49 +82,11 @@ export class LoginPage {
         'Content-Type': 'application/json'
       })
     };
-    this.http.post<HttpResponse>(url, message, httpOptions).pipe()
-      .toPromise().then(response => {
-      loading.dismissAll();
-      this.storage.set('irent-token', response['message']);
-    }).then(_ => {
-      this.nav.setRoot(MenuPage);
-    })
-
+    return this.http.post<HttpResponse>(url, message, httpOptions);
   }
 
   register() {
-    let loading = this.loadingController.create({content: "Registering...."});
-    loading.present();
-    let map = new TSMap();
-    map.set('email', this.registrantEmail);
-    map.set('name', this.registrantName);
-    map.set('password', this.registrantPassword);
-    let contacts: string[] = [];
-    contacts.push(this.contact1);
-    contacts.push(this.contact2);
-    contacts.push(this.contact3);
-    map.set('contacts', contacts);
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-    let url = Host.host + "/users/register"
-    let message = map.toJSON();
-
-    this.http.post<HttpResponse>(url, message, httpOptions).pipe()
-      .toPromise().then(response => {
-        loading.dismissAll();
-      let alert = this.alertCtrl.create({
-        title: response['status'],
-        subTitle: "Successfully registered!",
-        buttons: ['Ok']
-      });
-      // add loading
-      alert.present();
-      console.log(response);
-    });
-
-
+    this.nav.push(RegisterPage);
   }
+
 }

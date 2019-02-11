@@ -23,8 +23,6 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 
-
-
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -43,7 +41,13 @@ $colors: (
   dark-green: #27570C,
   light-green: #43890D,
   light-brown: #C6B341,
-  real-dark-green:#143103
+  real-dark-green:#143103,
+  blue0:#e3f2fd,
+  blue1: #bbdefb,
+  blue2: #90caf9,
+  blue3: #64b5f6,
+  blue4: #42a5f5,
+  blue5: #2196f3
 );
 
 // App iOS Variables
@@ -51,20 +55,14 @@ $colors: (
 // iOS only Sass variables can go here
 
 
-
-
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
 
-
-
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
-
-
 
 
 // App Theme
