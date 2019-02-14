@@ -1,0 +1,69 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Advanced Search</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label floating>Keyword</ion-label>
+    <ion-input [(ngModel)]="keyword"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Property Type</ion-label>
+    <ion-select [(ngModel)]="propertyType">
+      <ion-option>Rooms</ion-option>
+      <ion-option>House</ion-option>
+      <ion-option>Apartment</ion-option>
+      <ion-option>Condominium</ion-option>
+    </ion-select>
+  </ion-item>
+
+
+  <div class="budget-range">
+    <ion-item>
+      <ion-label floating>Minimum Budget</ion-label>
+      <ion-input type="number" [(ngModel)]="minPrice"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Maximum Budget</ion-label>
+      <ion-input type="number" [(ngModel)]="maxPrice"></ion-input>
+    </ion-item>
+  </div>
+
+  <ion-item>
+    <ion-label floating>Number of slots</ion-label>
+    <ion-input type="number" [(ngModel)]="slots"></ion-input>
+  </ion-item>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label floating>Amenities</ion-label>
+        <ion-input [(ngModel)]="amenity"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <button class="baton" (click)="addAmenity(amenity)" ion-button color="secondary">
+        Add Amenity
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let amenity of amenities" class="login-button">
+    <ion-list>
+      <button class="login-button" ion-item (click)="deleteAmenity(amenity)">
+        {{amenity}}
+        <ion-icon name="close" item-end></ion-icon>
+      </button>
+    </ion-list>
+  </ion-row>
+
+  <button class="login-button" ion-button (click)="search()">Search</button>
+
+</ion-content>
