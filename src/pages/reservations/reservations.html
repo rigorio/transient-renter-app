@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>My Reservations</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card class="ioncard" *ngFor="let reservation of reservations" (click)="itemTapped($event, reservation)">
+    <div class="one">
+      <span class="helper"></span>
+      <img class="maximg" src="{{ reservation.coverPic }}" alt="no pic added" *ngIf="reservation.coverPic!=null"/>
+    </div>
+    <div class="two">
+      <!--<ion-card-header>-->
+      <ion-card-content>
+        <h6>
+          {{reservation.reviews}}/5 reviews!
+          {{reservation.propertyType}}
+        </h6>
+        <!--<ion-card-title>-->
+        <h2>
+          {{reservation.title}}
+        </h2>
+
+
+        <!--</ion-card-title>-->
+        <!--</ion-card-header>-->
+        {{reservation.street}},
+        {{reservation.city}},
+        {{reservation.state}},
+        {{reservation.country}}
+      </ion-card-content>
+    </div>
+  </ion-card>
+</ion-content>
