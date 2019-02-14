@@ -170,10 +170,10 @@ export class CreateItemPage {
       this.cannotBeBlank("Property Type");
       return false;
     }
-    if (this.street == null) {
-      this.cannotBeBlank("Street");
-      return false;
-    }
+    // if (this.street == null) {
+    //   this.cannotBeBlank("Street");
+    //   return false;
+    // }
     if (this.city == null) {
       this.cannotBeBlank("City");
       return false;
@@ -220,9 +220,9 @@ export class CreateItemPage {
   }
 
   addAmenity(amenity: string) {
-    if (amenity == null || amenity.length < 4) {
+    if (amenity == null || amenity.length < 3) {
       let alert = this.alertCtrl.create({
-        title: "Must be at least 4 characters",
+        title: "Must be at least 3 characters",
         buttons: ['Ok']
       });
       // add loading

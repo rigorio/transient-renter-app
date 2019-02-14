@@ -3,7 +3,7 @@ export class Transient {
   coverPic: any;
   title: any;
   propertyType: any;
-  amenities: any;
+  amenities: string[];
   street: any;
   city: any;
   state: any;
@@ -13,7 +13,7 @@ export class Transient {
   slots: any;
   reviews: string[] = [];
 
-  constructor(id: any, coverPic: any, title: any, propertyType: any, amenities: any, street: any, city: any, state: any, country: any, price: any, description: any, slots: any, reviews: string[]) {
+  constructor(id: any, coverPic: any, title: any, propertyType: any, amenities: string[], street: any, city: any, state: any, country: any, price: any, description: any, slots: any, reviews: string[]) {
     this.id = id;
     this.coverPic = coverPic;
     this.title = title;

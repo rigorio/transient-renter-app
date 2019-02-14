@@ -24,13 +24,13 @@
 
   <ion-item>
     <ion-label floating>Title</ion-label>
-    <ion-input [(ngModel)]="title"></ion-input>
+    <ion-input required [(ngModel)]="title"></ion-input>
   </ion-item>
 
 
   <ion-item>
     <ion-label>Property Type</ion-label>
-    <ion-select [(ngModel)]="propertyType">
+    <ion-select required [(ngModel)]="propertyType">
       <ion-option>Rooms</ion-option>
       <ion-option>House</ion-option>
       <ion-option>Apartment</ion-option>
@@ -40,40 +40,40 @@
 
   <ion-item>
     <ion-label floating>Street</ion-label>
-    <ion-input [(ngModel)]="street"></ion-input>
+    <ion-input required [(ngModel)]="street"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>City</ion-label>
-    <ion-input [(ngModel)]="city"></ion-input>
+    <ion-input required [(ngModel)]="city"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>State</ion-label>
-    <ion-input [(ngModel)]="state"></ion-input>
+    <ion-input required [(ngModel)]="state"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>Country</ion-label>
-    <ion-input [(ngModel)]="country"></ion-input>
+    <ion-input required [(ngModel)]="country"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Price</ion-label>
-    <ion-input type="number" [(ngModel)]="price"></ion-input>
+    <ion-input type="number" required [(ngModel)]="price"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Description</ion-label>
-    <ion-textarea [(ngModel)]="description"></ion-textarea>
+    <ion-textarea required [(ngModel)]="description"></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label floating>Slots available</ion-label>
-    <ion-input type="number" [(ngModel)]="slots"></ion-input>
+    <ion-input type="number" required [(ngModel)]="slots"></ion-input>
   </ion-item>
 
   <ion-row>
     <ion-col>
       <ion-item>
         <ion-label floating>Amenities</ion-label>
-        <ion-input [(ngModel)]="amenity"></ion-input>
+        <ion-input required [(ngModel)]="amenity"></ion-input>
       </ion-item>
     </ion-col>
     <ion-col>
