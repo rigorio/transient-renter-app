@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Edit Account</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Contacts</ion-label>
+          <ion-input [(ngModel)]="contact"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <button class="baton" (click)="addContact(contact)" ion-button color="secondary">
+          Add Contact
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let contact of user.contacts" class="login-button">
+      <ion-list>
+        <button class="login-button" ion-item (click)="deleteContact(contact)">
+          {{contact}}
+          <ion-icon name="close" item-end></ion-icon>
+        </button>
+      </ion-list>
+    </ion-row>
+
+    <button ion-button (click)="editContact()">Save</button>
+    <button ion-button (click)="deleteContact()" color="danger" float="right">Delete</button>
+  </ion-card>
+</ion-content>

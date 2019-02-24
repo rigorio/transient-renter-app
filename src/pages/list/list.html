@@ -12,28 +12,37 @@
     <ion-label floating>Tap here to search</ion-label>
     <ion-input [(ngModel)]="keyword" (change)="search()"></ion-input>
   </ion-item>
+  <button ion-button (click)="addFilter()">Advanced Search</button>
+  <button ion-button (click)="clear()">Clear Filters</button>
 
 
   <ion-card class="ioncard" *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
-    <div class="clearfix float-my-children">
-      <div class="frame">
-        <span class="helper"></span>
-        <img class="maximg" src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
-      </div>
-      <div>
-        <ion-card-header>
-          <p>
+    <div class="one" text-center>
+      <span class="helper"></span>
+      <img class="maximg" src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
+    </div>
+    <div class="two">
+      <!--<ion-card-header>-->
+      <ion-card-content>
+        <h6 class="crop">
+          {{transient.reviews}}/5 reviews!
+          {{transient.propertyType}}
+        </h6>
+        <!--<ion-card-title>-->
+        <h2 class="crop">
+          {{transient.title}}
+        </h2>
 
-            {{transient.country}}
-          </p>
-          <ion-card-title>
-            {{transient.title}}
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
 
-        </ion-card-content>
-      </div>
+        <!--</ion-card-title>-->
+        <!--</ion-card-header>-->
+        <div class="crop">
+          {{transient.street}},
+          {{transient.city}},
+          {{transient.state}},
+          {{transient.country}}
+        </div>
+      </ion-card-content>
     </div>
   </ion-card>
 

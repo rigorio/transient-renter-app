@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Storage} from "@ionic/storage";
 import {ReservationsPage} from "../reservations/reservations";
 import {LoginPage} from "../login/login";
+import {EditAccountPage} from "../edit-account/edit-account";
 
 
 @Component({
@@ -11,8 +12,6 @@ import {LoginPage} from "../login/login";
   templateUrl: 'account.html'
 })
 export class AccountPage {
-
-  search: any;
 
   constructor(
     public nav: NavController,
@@ -40,10 +39,12 @@ export class AccountPage {
   viewReservations() {
     console.log("ha");
     this.nav.push(ReservationsPage);
-
+    console.log("eh");
   }
 
   editAccount() {
-
+    console.log("haaaa");
+    this.nav.push(EditAccountPage);
+    console.log("minahal kita agad");
   }
 }

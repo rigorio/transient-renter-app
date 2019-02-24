@@ -14,10 +14,12 @@
 
   <ion-item>
     <ion-label id="profile_image" stacked>Select Image</ion-label>
-    <ion-input type="file" accept=".png, .jpg" (change)="selectFile($event)">
+    <ion-input type="file" accept=".png, .jpg, .jpeg" (change)="selectFile($event)">
       Upload Image
     </ion-input>
   </ion-item>
+
+  <button ion-button (click)="androidFile()">Upload image</button>
 
   <img src="{{coverPic}}" alt="no img selected" *ngIf="coverPic!=null"/>
 

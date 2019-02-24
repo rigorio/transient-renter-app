@@ -20,6 +20,8 @@ import {ReservationsPage} from "../pages/reservations/reservations";
 import {ImagePicker} from "@ionic-native/image-picker/ngx";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {RegisterPage} from "../pages/register/register";
+import {FilterPage} from "../pages/filter/filter";
+import {EditAccountPage} from "../pages/edit-account/edit-account";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import {RegisterPage} from "../pages/register/register";
     SelectItemPage,
     EditItemPage,
     ReservationsPage,
-    RegisterPage
+    RegisterPage,
+    FilterPage,
+    EditAccountPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,9 @@ import {RegisterPage} from "../pages/register/register";
     SelectItemPage,
     EditItemPage,
     ReservationsPage,
-    RegisterPage
+    RegisterPage,
+    FilterPage,
+    EditAccountPage
   ],
   providers: [
     StatusBar,

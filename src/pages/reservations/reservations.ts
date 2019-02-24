@@ -12,6 +12,7 @@ import {HttpResponse} from "../HttpResponse";
 
 import {SelectItemPage} from "../select-item/select-item";
 import {Reservation} from "../create-item/Reservation";
+import {Transient} from "../create-item/Transient";
 
 
 @Component({
@@ -28,6 +29,25 @@ export class ReservationsPage {
               private loadingController: LoadingController,
               private alertCtrl: AlertController
   ) {
+    console.log("heh");
+    this.storage.get('irent-token').then(token => {
+      let url = Host.host + "/api/reservations/houses?token=" + token;
+      this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+        console.log(response);
+        this.reservations = response['message'];
+      })
+    })
+  }
+
+  /**
+   * refreshes the page
+   */
+  public wawUesugiKun() {
+
+  }
+
+  ionViewDidEnter() {
+    console.log("totoo?");
     console.log("heh");
     this.storage.get('irent-token').then(token => {
       let url = Host.host + "/api/reservations/houses?token=" + token;
@@ -71,29 +91,27 @@ export class ReservationsPage {
 
   itemTapped(event, reservation) {
     console.log("but did it work?");
-    let item: {
-      id: number,
-      title: string,
-      description: string,
-      coverPic: string,
-      location: string,
-      slots: number,
-      price: number,
-      reviews: number[]
-    };
-    item = {
-      id: reservation.houseId,
-      title: reservation.title,
-      description: reservation.description,
-      coverPic: reservation.coverPic,
-      location: reservation.location,
-      slots: reservation.slots,
-      price: reservation.price,
-      reviews: reservation.reviews
-    };
+    let transient = new Transient(
+      reservation.houseId,
+      reservation.coverPic,
+      reservation.title,
+      reservation.propertyType,
+      reservation.amenities,
+      reservation.street,
+      reservation.city,
+      reservation.state,
+      reservation.country,
+      reservation.price,
+      reservation.description,
+      reservation.slots,
+      reservation.reviews
+    );
+
     let show = false;
     this.nav.push(SelectItemPage, {
-      item, show
+      reservation: reservation,
+      show: show,
+      parent: this
     });
   }
 }

@@ -11,9 +11,9 @@ export class Transient {
   price: any;
   description: any;
   slots: any;
-  reviews: string[] = [];
+  reviews: number[] = [];
 
-  constructor(id: any, coverPic: any, title: any, propertyType: any, amenities: string[], street: any, city: any, state: any, country: any, price: any, description: any, slots: any, reviews: string[]) {
+  constructor(id: any, coverPic: any, title: any, propertyType: any, amenities: string[], street: any, city: any, state: any, country: any, price: any, description: any, slots: any, reviews: number[]) {
     this.id = id;
     this.coverPic = coverPic;
     this.title = title;

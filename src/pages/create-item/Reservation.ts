@@ -1,4 +1,4 @@
-export class Reservations{
+export class Reservation{
   id: number;
   userId: number;
   houseId: number;
@@ -13,6 +13,12 @@ export class Reservations{
   description: string;
   slots: number;
   reviews: number[];
+  propertyType: any;
+  amenities: string[];
+  street: any;
+  city: any;
+  state: any;
+  country: any;
 
   constructor(id: number, userId: number, houseId: number, arrival: string, departure: string, name: string, contacts: string[], coverPic: string, location: string, title: string, price: number, description: string, slots: number, reviews: number[]) {
     this.id = id;

@@ -6,6 +6,9 @@ import {HttpResponse} from "../HttpResponse";
 import {Host} from "../host";
 import {TSMap} from "typescript-map";
 import {Transient} from "../create-item/Transient";
+import {ReservationsPage} from "../reservations/reservations";
+import {Reservation} from "../create-item/Reservation";
+import {ListPage} from "../list/list";
 
 @Component({
   selector: 'page-select-item',
@@ -13,12 +16,15 @@ import {Transient} from "../create-item/Transient";
 })
 export class SelectItemPage {
   show: boolean = true;
+  checkIn: any;
+  checkOut: any;
 
   transient: Transient;
+  reservation: Reservation;
   averageReview: number = 0;
   owner: { id: number, email: string, name: string, contacts: string[] };
-  departure: any;
-  arrival: any;
+  departure: string;
+  arrival: string;
 
   constructor(public nav: NavController,
               public navParams: NavParams,
@@ -28,10 +34,33 @@ export class SelectItemPage {
               private alertCtrl: AlertController
   ) {
     this.show = navParams.get("show");
+    this.reservation = navParams.get("reservation");
+    console.log(this.reservation);
+    if (this.reservation != null) {
+      this.checkIn = this.reservation.arrival;
+      this.checkOut = this.reservation.departure;
+      this.transient = new Transient(
+        this.reservation.houseId,
+        this.reservation.coverPic,
+        this.reservation.title,
+        this.reservation.propertyType,
+        this.reservation.amenities,
+        this.reservation.street,
+        this.reservation.city,
+        this.reservation.state,
+        this.reservation.country,
+        this.reservation.price,
+        this.reservation.description,
+        this.reservation.slots,
+        this.reservation.reviews
+      );
+    } else {
+      this.transient = navParams.get('item');
+    }
+
 
     let loading = this.loadingController.create({content: "Please wait..."});
     loading.present();
-    this.transient = navParams.get('item');
     console.log(this.transient);
     this.owner = {
       id: 1,
@@ -44,7 +73,6 @@ export class SelectItemPage {
       console.log(response);
       this.owner = response['message'];
     }).then(_ => {
-      console.log(this.owner);
       loading.dismissAll()
     });
 
@@ -56,14 +84,25 @@ export class SelectItemPage {
   }
 
   book() {
+    if (this.arrival == null || this.departure == null) {
+      let alert = this.alertCtrl.create({
+        title: "Please add Check In and Check Out date",
+        buttons: ['Ok']
+      });
+      // add loading
+      alert.present();
+      return;
+    }
     let loading = this.loadingController.create({content: "Please wait..."});
     loading.present();
     let map = new TSMap();
     console.log(this.arrival);
     console.log(this.departure);
-    map.set('arrival', this.arrival);
-    map.set('departure', this.departure);
+    let stay = new TSMap();
+    stay.set('arrival', this.arrival);
+    stay.set('departure', this.departure);
     map.set('houseId', this.transient.id);
+    map.set('stay', stay.toJSON());
     let message = map.toJSON();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -80,10 +119,28 @@ export class SelectItemPage {
           buttons: ['Ok']
         });
         // add loading
-        alert.present();
+        alert.present().then(what => {
+          this.nav.setRoot(ListPage);
+        });
       })
     })
 
+  }
+
+  cancel() {
+    this.storage.get("irent-token").then(token => {
+      let url = Host.host + "/api/reservations/" + this.reservation.id + "?token=" + token;
+      this.http.delete<HttpResponse>(url).pipe().toPromise().then(response => {
+        let alert = this.alertCtrl.create({
+          title: response.status,
+          message: response.message,
+          buttons: ['Ok']
+        });
+        // add loading
+        alert.present();
+        this.nav.pop();
+      })
+    })
   }
 }
 

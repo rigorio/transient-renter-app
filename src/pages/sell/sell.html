@@ -12,19 +12,29 @@
 
   <button ion-button (click)="createItem()">Add Listing</button>
 
-  <ion-card *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
-    <img src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
-    <ion-card-header>
-      <p>
-        {{transient.slots}} units available
-      </p>
-      <ion-card-title>
-        {{transient.title}}
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      {{transient.country}}
-    </ion-card-content>
+  <ion-card class="ioncard" *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
+    <div class="one">
+      <span class="helper"></span>
+      <img class="maximg" src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
+    </div>
+    <div class="two">
+      <!--<ion-card-header>-->
+      <ion-card-content>
+        <h6>
+          {{transient.reviews}}/5 reviews!
+        </h6>
+        <!--<ion-card-title>-->
+        <h2>
+          {{transient.title}}
+        </h2>
+        <!--</ion-card-title>-->
+        <!--</ion-card-header>-->
+        {{transient.street}},
+        {{transient.city}},
+        {{transient.state}},
+        {{transient.country}}
+      </ion-card-content>
+    </div>
   </ion-card>
 
 

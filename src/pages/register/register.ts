@@ -42,7 +42,7 @@ export class RegisterPage {
       loading.dismissAll();
       let alert = this.alertCtrl.create({
         title: response['status'],
-        subTitle: response['message'],
+        subTitle: "Please check your email and confirm your registration",
         buttons: ['Ok']
       });
       // add loading

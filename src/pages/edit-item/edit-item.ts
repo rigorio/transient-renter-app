@@ -6,7 +6,7 @@ import {Storage} from "@ionic/storage";
 import {Host} from "../host";
 import {HttpResponse} from "../HttpResponse";
 import {SellPage} from "../sell/sell";
-import {Reservations} from "../create-item/Reservations";
+import {Reservation} from "../create-item/Reservation";
 import {Transient} from "../create-item/Transient";
 
 /**
@@ -23,7 +23,7 @@ import {Transient} from "../create-item/Transient";
 })
 export class EditItemPage {
   transient: Transient;
-  reservations: Reservations[];
+  reservations: Reservation[];
   coverPic: any;
 
   constructor(public nav: NavController,
