@@ -2,8 +2,8 @@ export class Reservation{
   id: number;
   userId: number;
   houseId: number;
-  arrival: string;
-  departure: string;
+  checkIn: string;
+  checkOut: string;
   name: string;
   contacts: string[];
   coverPic: string;
@@ -20,12 +20,12 @@ export class Reservation{
   state: any;
   country: any;
 
-  constructor(id: number, userId: number, houseId: number, arrival: string, departure: string, name: string, contacts: string[], coverPic: string, location: string, title: string, price: number, description: string, slots: number, reviews: number[]) {
+  constructor(id: number, userId: number, houseId: number, checkIn: string, checkOut: string, name: string, contacts: string[], coverPic: string, location: string, title: string, price: number, description: string, slots: number, reviews: number[]) {
     this.id = id;
     this.userId = userId;
     this.houseId = houseId;
-    this.arrival = arrival;
-    this.departure = departure;
+    this.checkIn = checkIn;
+    this.checkOut = checkOut;
     this.name = name;
     this.contacts = contacts;
     this.coverPic = coverPic;

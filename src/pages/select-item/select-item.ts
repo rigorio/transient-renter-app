@@ -9,6 +9,7 @@ import {Transient} from "../create-item/Transient";
 import {ReservationsPage} from "../reservations/reservations";
 import {Reservation} from "../create-item/Reservation";
 import {ListPage} from "../list/list";
+import {ReviewsPage} from "../reviews/reviews";
 
 @Component({
   selector: 'page-select-item',
@@ -37,8 +38,8 @@ export class SelectItemPage {
     this.reservation = navParams.get("reservation");
     console.log(this.reservation);
     if (this.reservation != null) {
-      this.checkIn = this.reservation.arrival;
-      this.checkOut = this.reservation.departure;
+      this.checkIn = this.reservation.checkIn;
+      this.checkOut = this.reservation.checkOut;
       this.transient = new Transient(
         this.reservation.houseId,
         this.reservation.coverPic,
@@ -84,9 +85,9 @@ export class SelectItemPage {
   }
 
   book() {
-    if (this.arrival == null || this.departure == null) {
+    if (this.arrival == null) {
       let alert = this.alertCtrl.create({
-        title: "Please add Check In and Check Out date",
+        title: "Please add Check In. If you wish to stay for an indefinite amount of time, leave the Check Out blank.",
         buttons: ['Ok']
       });
       // add loading
@@ -99,8 +100,9 @@ export class SelectItemPage {
     console.log(this.arrival);
     console.log(this.departure);
     let stay = new TSMap();
-    stay.set('arrival', this.arrival);
-    stay.set('departure', this.departure);
+    stay.set('checkIn', this.arrival);
+    // if (this.checkOut != null)
+    stay.set('checkOut', this.departure);
     map.set('houseId', this.transient.id);
     map.set('stay', stay.toJSON());
     let message = map.toJSON();
@@ -141,6 +143,10 @@ export class SelectItemPage {
         this.nav.pop();
       })
     })
+  }
+
+  review() {
+    this.nav.push(ReviewsPage);
   }
 }
 

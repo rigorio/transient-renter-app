@@ -8,6 +8,7 @@ import {HttpResponse} from "../HttpResponse";
 import {SellPage} from "../sell/sell";
 import {Reservation} from "../create-item/Reservation";
 import {Transient} from "../create-item/Transient";
+import {FileChooser} from "@ionic-native/file-chooser";
 
 /**
  * Generated class for the EditItemPage page.
@@ -31,7 +32,8 @@ export class EditItemPage {
               public http: HttpClient,
               private storage: Storage,
               private loadingController: LoadingController,
-              private alertCtrl: AlertController
+              private alertCtrl: AlertController,
+              private fileChooser: FileChooser
   ) {
     this.transient = navParams.get("transient");
     this.coverPic = this.transient.coverPic;
@@ -148,6 +150,65 @@ export class EditItemPage {
       });
     });
   }
+
+  androidFile() {
+    this.fileChooser.open()
+      .then(uri => {
+        console.log("uri");
+        console.log(uri);
+
+        (<any>window).FilePath.resolveNativePath(uri, (result) => {
+          console.log("resolve1");
+          let type = result.split(".")[1];
+          console.log(result);
+          console.log(type);
+          (<any>window).resolveLocalFileSystemURL(result, (res) => {
+            console.log("resolve2");
+            res.file((resFile) => {
+              console.log("resolve3");
+              console.log(resFile);
+              var reader = new FileReader();
+              console.log("resolve4");
+              reader.readAsArrayBuffer(resFile);
+              console.log("resolve 5");
+              reader.onloadend = (evt: any) => {
+                console.log("what");
+                var imgBlob = new Blob([evt.target.result], {type: 'image/jpeg'});
+                let formData = new FormData();
+                formData.append('file', imgBlob);
+                this.getToken().then(token => {
+                  console.log("in token " + token);
+                  let url = Host.host + "/api/images/v2?token=" + token + "&type=" + type;
+                  this.http.post(url, formData).pipe().toPromise().then(response => {
+                    console.log("response");
+                    console.log(response['message']);
+                    console.log(response);
+                    this.coverPic = Host.host + "/api/images" + response['message'];
+                    console.log(this.coverPic);
+                    let alert = this.alertCtrl.create({
+                      title: response['status'],
+                      subTitle: response['message'],
+                      buttons: ['Ok']
+                    });
+                    // add loading
+                    alert.present();
+                  });
+
+                })
+
+                //do what you want to do with the file
+              }
+            })
+          })
+        });
+
+
+        // let url = Host.host + "/api/images/print?file=" + uri;
+        // this.http.get(url).pipe().toPromise().then(_ => {
+        // });
+      });
+  }
+
 
   private getToken() {
     return this.storage.get("irent-token");

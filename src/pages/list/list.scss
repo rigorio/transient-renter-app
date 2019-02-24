@@ -2,12 +2,7 @@ page-list {
 
 }
 
-.img-size {
-  height: 40px;
-  width: 40px;
-}
-
-.crop {
+.crop { // to convert to ...
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -24,16 +19,25 @@ page-list {
 
 .one {
   width: 30%;
-  height: 200px;
+  //height: 100%;
+  //display: block;
   float: left;
+  vertical-align: middle;
+  display: flex!important;
+  align-content: center!important;
+  align-items: center!important;
 }
 
 .two {
-  padding-left: 50px;
-  margin-left: 15%;
+  padding-left: 30%;
+  //margin-left: 30%;
   height: 200px;
 }
 
+.imago {
+  max-height: 100%;
+}
+
 .ioncard {
-  max-height: 100px;
+  max-height: 15%;
 }

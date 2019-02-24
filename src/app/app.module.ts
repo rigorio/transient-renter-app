@@ -22,6 +22,7 @@ import {FileChooser} from "@ionic-native/file-chooser";
 import {RegisterPage} from "../pages/register/register";
 import {FilterPage} from "../pages/filter/filter";
 import {EditAccountPage} from "../pages/edit-account/edit-account";
+import {ReviewsPage} from "../pages/reviews/reviews";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {EditAccountPage} from "../pages/edit-account/edit-account";
     ReservationsPage,
     RegisterPage,
     FilterPage,
-    EditAccountPage
+    EditAccountPage,
+    ReviewsPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ import {EditAccountPage} from "../pages/edit-account/edit-account";
     ReservationsPage,
     RegisterPage,
     FilterPage,
-    EditAccountPage
+    EditAccountPage,
+    ReviewsPage
   ],
   providers: [
     StatusBar,

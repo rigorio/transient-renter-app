@@ -14,9 +14,8 @@
       </ion-input>
     </ion-item>
 
-
     <img src="{{coverPic}}" alt="no img selected" *ngIf="coverPic!=null"/>
-
+    <button ion-button (click)="androidFile()">Replace image</button>
 
     <ion-item>
       <ion-label floating>Title</ion-label>
@@ -125,10 +124,10 @@
           </ion-list>
         </ion-col>
         <ion-col>
-          {{reservation.arrival}}
+          {{reservation.checkIn}}
         </ion-col>
         <ion-col>
-          {{reservation.departure}}
+          {{reservation.checkOut == null ? 'Long term' : reservation.checkOut}}
         </ion-col>
         <ion-col>
           <button class="icon" (click)="delete(reservation)" ion-button color="danger" clear icon-only>

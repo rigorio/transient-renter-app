@@ -37,7 +37,6 @@ export class CreateItemPage {
               private storage: Storage,
               private loadingController: LoadingController,
               private alertCtrl: AlertController,
-              private imagePicker: ImagePicker,
               private fileChooser: FileChooser
   ) {
     this.amenities = [];
@@ -176,35 +175,6 @@ export class CreateItemPage {
         // this.http.get(url).pipe().toPromise().then(_ => {
         // });
       });
-  }
-
-  filepicker() {
-    this.fileChooser.open().then(uri => {
-        this.file = uri;
-        console.log(this.file);
-        let loading = this.loadingController.create({content: "Please wait..."});
-        loading.present();
-        this.getToken().then(token => {
-          let url = Host.host + "/api/images?token=" + token;
-          let formData = new FormData();
-          formData.append('file', this.file);
-          this.http.post(url, formData).pipe().toPromise().then(response => {
-            console.log(response['message']);
-            console.log(response);
-            loading.dismissAll();
-            this.coverPic = Host.host + "/api/images" + response['message'];
-            console.log(this.coverPic);
-            let alert = this.alertCtrl.create({
-              title: response['status'],
-              subTitle: response['message'],
-              buttons: ['Ok']
-            });
-            // add loading
-            alert.present();
-          });
-        });
-      }
-    );
   }
 
   private getToken() {

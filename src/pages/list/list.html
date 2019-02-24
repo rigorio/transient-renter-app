@@ -17,9 +17,8 @@
 
 
   <ion-card class="ioncard" *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
-    <div class="one" text-center>
-      <span class="helper"></span>
-      <img class="maximg" src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
+    <div class="one" text-center vertical-align-top>
+      <img class="imago" src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
     </div>
     <div class="two">
       <!--<ion-card-header>-->

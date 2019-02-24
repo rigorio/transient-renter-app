@@ -74,7 +74,7 @@
       Check In: {{checkIn}}
     </ion-card-content>
     <ion-card-content>
-      Check Out: {{checkOut}}
+      Check Out: {{checkOut == null ? 'Long term' : checkOut}}
     </ion-card-content>
   </ion-card>
 
@@ -94,6 +94,7 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
+  <button *ngIf="!show" color="danger" class="login-button" ion-button (click)="review()">Leave a review</button>
 
   <button *ngIf="!show" color="danger" class="login-button" ion-button (click)="cancel()">Cancel Booking</button>
 
