@@ -10,6 +10,7 @@ import {ReservationsPage} from "../reservations/reservations";
 import {Reservation} from "../create-item/Reservation";
 import {ListPage} from "../list/list";
 import {ReviewsPage} from "../reviews/reviews";
+import {ReviewpagePage} from "../reviewpage/reviewpage";
 
 @Component({
   selector: 'page-select-item',
@@ -22,7 +23,6 @@ export class SelectItemPage {
 
   transient: Transient;
   reservation: Reservation;
-  averageReview: number = 0;
   owner: { id: number, email: string, name: string, contacts: string[] };
   departure: string;
   arrival: string;
@@ -34,6 +34,8 @@ export class SelectItemPage {
               private loadingController: LoadingController,
               private alertCtrl: AlertController
   ) {
+
+
     this.show = navParams.get("show");
     this.reservation = navParams.get("reservation");
     console.log(this.reservation);
@@ -53,6 +55,7 @@ export class SelectItemPage {
         this.reservation.price,
         this.reservation.description,
         this.reservation.slots,
+        this.reservation.average,
         this.reservation.reviews
       );
     } else {
@@ -146,7 +149,16 @@ export class SelectItemPage {
   }
 
   review() {
-    this.nav.push(ReviewsPage);
+    this.nav.push(ReviewsPage, {
+      reservation: this.reservation
+    });
+  }
+
+  viewReviews() {
+    this.nav.push(ReviewpagePage, {
+      houseId: this.transient.id,
+      title: this.transient.title
+    });
   }
 }
 

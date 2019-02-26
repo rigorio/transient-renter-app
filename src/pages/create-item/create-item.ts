@@ -30,6 +30,7 @@ export class CreateItemPage {
   country: any;
   amenity: any;
   amenities: string[];
+  amenns: string[];
 
   constructor(public nav: NavController,
               public navParams: NavParams,
@@ -40,6 +41,10 @@ export class CreateItemPage {
               private fileChooser: FileChooser
   ) {
     this.amenities = [];
+    this.http.get<HttpResponse>(Host.host + "/api/amenities").pipe().toPromise().then(response => {
+      console.log(response);
+      this.amenns = response.message;
+    });
   }
 
   ionViewDidLoad() {
@@ -238,19 +243,19 @@ export class CreateItemPage {
     let body = map.toJSON();
     return body;
   }
-
-  addAmenity(amenity: string) {
-    if (amenity == null || amenity.length < 3) {
+  amenn: any;
+  addAmenity() {
+    if (this.amenn == null) {
       let alert = this.alertCtrl.create({
-        title: "Must be at least 3 characters",
+        title: "Please select an amenity from the list",
         buttons: ['Ok']
       });
       // add loading
       alert.present();
       return;
     }
-    console.log(amenity);
-    this.amenities.push(amenity);
+    console.log(this.amenn);
+    this.amenities.push(this.amenn);
     console.log(this.amenities);
     this.amenity = "";
 

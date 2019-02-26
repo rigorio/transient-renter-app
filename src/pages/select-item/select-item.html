@@ -24,7 +24,7 @@
     <ion-card-content>
       <p>{{transient.propertyType}}</p>
       <p>{{transient.description}}</p>
-      <p>Average Ratings: {{averageReview}}/5</p>
+      <p>Average Ratings: {{transient.average}}/5</p>
       <p>Available: {{transient.slots}} units</p>
     </ion-card-content>
 
@@ -94,8 +94,13 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <button *ngIf="!show" color="danger" class="login-button" ion-button (click)="review()">Leave a review</button>
 
+  <button *ngIf="show" color="primary" class="login-button" ion-button (click)="viewReviews()">View reviews</button>
+
+  <button *ngIf="!show" color="primary" class="login-button" ion-button (click)="review()">Leave a review</button>
+  <br>
+  <br>
+  <br>
   <button *ngIf="!show" color="danger" class="login-button" ion-button (click)="cancel()">Cancel Booking</button>
 
 

@@ -24,7 +24,7 @@ export class MyApp {
               public storage: Storage,
               public loadingController: LoadingController) {
     storage.clear();
-    storage.set('irent-token', '4b1aa8bd-ed7d-4f94-b14a-5c55a2d6de21');
+    storage.set('irent-token', 'ce9369ed-029c-435c-8bfa-8b7f08b59a52');
     // let loading = loadingController.create({content: "Please wait..."});
     // // loading.present();
     // //     loading.dismissAll();

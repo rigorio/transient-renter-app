@@ -23,6 +23,7 @@ import {RegisterPage} from "../pages/register/register";
 import {FilterPage} from "../pages/filter/filter";
 import {EditAccountPage} from "../pages/edit-account/edit-account";
 import {ReviewsPage} from "../pages/reviews/reviews";
+import {ReviewpagePage} from "../pages/reviewpage/reviewpage";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {ReviewsPage} from "../pages/reviews/reviews";
     RegisterPage,
     FilterPage,
     EditAccountPage,
-    ReviewsPage
+    ReviewsPage,
+    ReviewpagePage
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ import {ReviewsPage} from "../pages/reviews/reviews";
     RegisterPage,
     FilterPage,
     EditAccountPage,
-    ReviewsPage
+    ReviewsPage,
+    ReviewpagePage
   ],
   providers: [
     StatusBar,

@@ -1,3 +1,5 @@
+import {Review} from "./Review";
+
 export class Transient {
   id: any;
   coverPic: any;
@@ -11,9 +13,12 @@ export class Transient {
   price: any;
   description: any;
   slots: any;
-  reviews: number[] = [];
+  average: number;
+  reviews: Review[] = [];
 
-  constructor(id: any, coverPic: any, title: any, propertyType: any, amenities: string[], street: any, city: any, state: any, country: any, price: any, description: any, slots: any, reviews: number[]) {
+  constructor(id: any, coverPic: any, title: any, propertyType: any, amenities: string[],
+              street: any, city: any, state: any, country: any, price: any,
+              description: any, slots: any, average: number, reviews: Review[]) {
     this.id = id;
     this.coverPic = coverPic;
     this.title = title;
@@ -26,6 +31,7 @@ export class Transient {
     this.price = price;
     this.description = description;
     this.slots = slots;
+    this.average = average;
     this.reviews = reviews;
   }
 }

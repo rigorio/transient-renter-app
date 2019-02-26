@@ -91,21 +91,7 @@ export class ReservationsPage {
 
   itemTapped(event, reservation) {
     console.log("but did it work?");
-    let transient = new Transient(
-      reservation.houseId,
-      reservation.coverPic,
-      reservation.title,
-      reservation.propertyType,
-      reservation.amenities,
-      reservation.street,
-      reservation.city,
-      reservation.state,
-      reservation.country,
-      reservation.price,
-      reservation.description,
-      reservation.slots,
-      reservation.reviews
-    );
+
 
     let show = false;
     this.nav.push(SelectItemPage, {

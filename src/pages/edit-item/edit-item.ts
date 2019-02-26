@@ -25,6 +25,8 @@ import {FileChooser} from "@ionic-native/file-chooser";
 export class EditItemPage {
   transient: Transient;
   reservations: Reservation[];
+  amenities: string[] = [];
+  amenn: any;
   coverPic: any;
 
   constructor(public nav: NavController,
@@ -39,7 +41,10 @@ export class EditItemPage {
     this.coverPic = this.transient.coverPic;
     // this.transient.amenities = [];
     this.reservations = [];
-
+    this.http.get<HttpResponse>(Host.host + "/api/amenities").pipe().toPromise().then(response => {
+      console.log(response);
+      this.amenities = response.message;
+    });
     this.storage.get('irent-token').then(token => {
       let url = Host.host + "/api/reservations/users/" + this.transient.id + "?token=" + token;
       this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
@@ -215,36 +220,58 @@ export class EditItemPage {
   }
 
   deleteItem() {
-    this.getToken().then(token => {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.getToken().then(token => {
 
-      let url = Host.host + "/api/houses/" + this.transient.id + "?token=" + token;
-      this.http.delete(url).pipe().toPromise().then(response => {
-        let alert = this.alertCtrl.create({
-          title: response['status'],
-          subTitle: response['message'],
-          buttons: ['Ok']
-        });
-        // add loading
-        alert.present();
-        this.nav.setRoot(SellPage);
-      });
+              let url = Host.host + "/api/houses/" + this.transient.id + "?token=" + token;
+              this.http.delete(url).pipe().toPromise().then(response => {
+                let alert = this.alertCtrl.create({
+                  title: response['status'],
+                  subTitle: response['message'],
+                  buttons: ['Ok']
+                });
+                // add loading
+                alert.present();
+                this.nav.setRoot(SellPage);
+              });
 
+            });
+          }
+        }
+      ]
     });
+
+    alert.present();
+
 
   }
 
-  addAmenity(amenity: string) {
-    if (amenity == null || amenity.length < 4) {
+  addAmenity() {
+    if (this.amenn == null) {
       let alert = this.alertCtrl.create({
-        title: "Must be at least 4 characters",
+        title: "Please select an amenity from the list",
         buttons: ['Ok']
       });
       // add loading
       alert.present();
       return;
     }
-    console.log(amenity);
-    this.transient.amenities.push(amenity);
+    console.log(this.amenn);
+    if (!(this.transient.amenities.indexOf(this.amenn) > -1))
+      this.transient.amenities.push(this.amenn);
     console.log(this.transient.amenities);
     this.amenity = "";
 

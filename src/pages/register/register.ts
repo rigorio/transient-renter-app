@@ -4,6 +4,7 @@ import {TSMap} from "typescript-map";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Host} from "../host";
 import {HttpResponse} from "../HttpResponse";
+import {LoginPage} from "../login/login";
 
 @Component({
   selector: 'page-register',
@@ -47,6 +48,9 @@ export class RegisterPage {
       });
       // add loading
       alert.present();
+      if (response.status == "Success") {
+        this.navCtrl.setRoot(LoginPage);
+      }
       console.log(response);
     });
 
@@ -57,7 +61,7 @@ export class RegisterPage {
       this.cannotBeBlank("Name");
       return false;
     }
-    if (this.registrantName.length <= 5) {
+    if (this.registrantName.length <= 2) {
       let alert = this.alertCtrl.create({
         title: "Name must be more than 5 characters",
         buttons: ['Ok']
@@ -86,15 +90,6 @@ export class RegisterPage {
     if (this.registrantPassword != this.confirmPassword) {
       let alert = this.alertCtrl.create({
         title: "Passwords did not match",
-        buttons: ['Ok']
-      });
-      // add loading
-      alert.present();
-      return false;
-    }
-    if (this.contacts.length < 1) {
-      let alert = this.alertCtrl.create({
-        title: "Add at least 1 contact",
         buttons: ['Ok']
       });
       // add loading

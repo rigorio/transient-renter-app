@@ -74,12 +74,17 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label floating>Amenities</ion-label>
-        <ion-input required [(ngModel)]="amenity"></ion-input>
+        <ion-label>Amenities</ion-label>
+        <ion-select [(ngModel)]="amenn">
+          <ion-option *ngFor="let a of amenns">{{a}}</ion-option>
+        </ion-select>
       </ion-item>
     </ion-col>
+  </ion-row>
+
+  <ion-row>
     <ion-col>
-      <button class="baton" (click)="addAmenity(amenity)" ion-button color="secondary">
+      <button (click)="addAmenity()" ion-button color="secondary">
         Add Amenity
       </button>
     </ion-col>

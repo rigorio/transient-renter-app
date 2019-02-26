@@ -1,0 +1,24 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Reviews</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card *ngFor="let review of reviews">
+    <ion-card-title>
+      {{title}}
+    </ion-card-title>
+    <ion-card-header>
+      {{review.score}} stars
+    </ion-card-header>
+    <ion-card-content>
+      {{review.review}}
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
