@@ -11,7 +11,6 @@ import {LoginPage} from "../login/login";
   templateUrl: 'register.html',
 })
 export class RegisterPage {
-  registrantName: any;
   registrantEmail: any;
   registrantPassword: any;
 
@@ -32,6 +31,9 @@ export class RegisterPage {
     console.log('ionViewDidLoad RegisterPage');
   }
 
+  hasNumber(myString) {
+    return /\d/.test(myString);
+  }
 
   register() {
     let loading = this.loadingController.create({content: "Registering...."});
@@ -59,13 +61,35 @@ export class RegisterPage {
   }
 
   nullCheck() {
-    if (this.registrantName == null) {
-      this.cannotBeBlank("Name");
+    if (this.firstName == null) {
+      this.cannotBeBlank("First Name");
       return false;
     }
-    if (this.registrantName.length <= 2) {
+    if (this.firstName.length < 2) {
       let alert = this.alertCtrl.create({
-        title: "Name must be more than 5 characters",
+        title: "First Name must be more than 1 character",
+        buttons: ['Ok']
+      });
+      // add loading
+      alert.present();
+      return false;
+    }
+    if (this.lastName == null) {
+      this.cannotBeBlank("First Name");
+      return false;
+    }
+    if (this.lastName.length < 2) {
+      let alert = this.alertCtrl.create({
+        title: "Last Name must be more than 1 character",
+        buttons: ['Ok']
+      });
+      // add loading
+      alert.present();
+      return false;
+    }
+    if (this.hasNumber(this.firstName) || this.hasNumber(this.lastName)) {
+      let alert = this.alertCtrl.create({
+        title: "Name cannot contain numbers",
         buttons: ['Ok']
       });
       // add loading
