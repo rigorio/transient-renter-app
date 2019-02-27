@@ -1,38 +1,55 @@
 <ion-header>
 
   <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>My Reservations</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
-  <ion-card class="ioncard" *ngFor="let reservation of reservations" (click)="itemTapped($event, reservation)">
-    <div class="one">
-      <span class="helper"></span>
-      <img class="maximg" src="{{ reservation.coverPic }}" alt="no pic added" *ngIf="reservation.coverPic!=null"/>
-    </div>
-    <div class="two">
-      <!--<ion-card-header>-->
-      <ion-card-content>
-        <h6>
-          {{reservation.reviews}}/5 reviews!
-          {{reservation.propertyType}}
-        </h6>
-        <!--<ion-card-title>-->
-        <h2>
+  <ion-card *ngFor="let reservation of reservations" (click)="itemTapped($event, reservation)">
+
+    <img src="{{ reservation.coverPic }}" alt="no pic added" *ngIf="reservation.coverPic!=null"/>
+
+    <!--<ion-card-header>-->
+    <ion-card-content>
+
+
+      <!--<ion-card-title>-->
+      <h5>{{reservation.propertyType}} - {{reservation.slots}} units</h5>
+      <h1 class="crop">
+        <b>
           {{reservation.title}}
-        </h2>
+        </b>
+      </h1>
 
+      <!--{{reservation.average != null ? reservation.average : ""}}-->
+      <!--<ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 0"></ion-icon>-->
+      <!--<ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 1"></ion-icon>-->
+      <!--<ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 2"></ion-icon>-->
+      <!--<ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 3"></ion-icon>-->
+      <!--<ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 4"></ion-icon>-->
+      <!--<ion-icon name="star-outline" *ngIf="reservation.stars.length <= 0"></ion-icon>-->
+      <!--<ion-icon name="star-outline" *ngIf="reservation.stars.length <= 1"></ion-icon>-->
+      <!--<ion-icon name="star-outline" *ngIf="reservation.stars.length <= 2"></ion-icon>-->
+      <!--<ion-icon name="star-outline" *ngIf="reservation.stars.length <= 3"></ion-icon>-->
+      <!--<ion-icon name="star-outline" *ngIf="reservation.stars.length <= 4"></ion-icon>-->
+      <!--{{reservation.reservationReviews.length > 0 ? reservation.reservationReviews.length : ""}}-->
+      <h6>
+        ₱ {{reservation.price}}
+      </h6>
 
-        <!--</ion-card-title>-->
-        <!--</ion-card-header>-->
-        {{reservation.street}},
-        {{reservation.city}},
-        {{reservation.state}},
-        {{reservation.country}}
-      </ion-card-content>
-    </div>
+      {{reservation.street}},
+      {{reservation.city}},
+      {{reservation.state}},
+      {{reservation.country}}
+
+    </ion-card-content>
+
   </ion-card>
+
 </ion-content>

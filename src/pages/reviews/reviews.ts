@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, Events, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {Reservation} from "../create-item/Reservation";
 import {TSMap} from "typescript-map";
 import {HttpClient} from "@angular/common/http";
@@ -22,8 +22,12 @@ export class ReviewsPage {
               private loadingController: LoadingController,
               private alertCtrl: AlertController,
               public storage: Storage,
-              public navParams: NavParams) {
-
+              public navParams: NavParams,
+              public events: Events) {
+    events.subscribe('star-rating:changed', (starRating) => {
+      console.log(starRating)
+      this.score = starRating;
+    });
     this.reservation = navParams.get('reservation');
     console.log(this.reservation);
 

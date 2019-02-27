@@ -1,5 +1,8 @@
 <ion-header>
   <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Edit Account</ion-title>
   </ion-navbar>
 </ion-header>
@@ -7,9 +10,23 @@
 
 <ion-content padding>
   <ion-card>
+    <!--<ion-item>-->
+    <!--<ion-label id="profile_image" stacked>Select Image</ion-label>-->
+    <!--<ion-input type="file" accept=".png, .jpg, .jpeg" (change)="selectFile($event)">-->
+    <!--Upload Image-->
+    <!--</ion-input>-->
+    <!--</ion-item>-->
+    <img class="profpic" src="{{profPic}}" alt="no img selected" *ngIf="profPic!=null"/>
+    <button ion-button (click)="androidFile()">Replace image</button>
+
     <ion-item>
-      <ion-label floating>Name</ion-label>
-      <ion-input [(ngModel)]="user.name"></ion-input>
+      <ion-label floating>First Name</ion-label>
+      <ion-input [(ngModel)]="user.firstName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Last Name</ion-label>
+      <ion-input [(ngModel)]="user.lastName"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -37,7 +54,7 @@
 
       <ion-row *ngFor="let contact of user.contacts" class="login-button">
         <ion-list>
-          <button class="login-button" ion-item (click)="deleteContact(contact)">
+          <button ion-item (click)="deleteContact(contact)">
             {{contact}}
             <ion-icon name="close" item-end></ion-icon>
           </button>

@@ -37,14 +37,10 @@ export class AccountPage {
   }
 
   viewReservations() {
-    console.log("ha");
     this.nav.push(ReservationsPage);
-    console.log("eh");
   }
 
   editAccount() {
-    console.log("haaaa");
     this.nav.push(EditAccountPage);
-    console.log("minahal kita agad");
   }
 }

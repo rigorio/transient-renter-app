@@ -1,0 +1,40 @@
+<!--
+  Generated template for the CheckinPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <!--<ion-title>checkin</ion-title>-->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Make a reservation</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Check In:</ion-label>
+        <ion-datetime min="2019" max="2099-10-31" [(ngModel)]="arrival"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [(ngModel)]="longTerm"></ion-checkbox>
+        <ion-label>Long term stay</ion-label>
+      </ion-item>
+      <ion-item *ngIf="!longTerm">
+        <ion-label>Check Out:</ion-label>
+        <ion-datetime min="2019" max="2099-10-31" [(ngModel)]="departure"></ion-datetime>
+      </ion-item>
+      <div text-center>
+        <button ion-button class="login-button" (click)="book()">Book</button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

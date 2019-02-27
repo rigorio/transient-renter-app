@@ -18,6 +18,8 @@ export class RegisterPage {
   contacts: string[];
   contact: any;
   confirmPassword: any;
+  lastName: any;
+  firstName: any;
 
   constructor(public navCtrl: NavController,
               private http: HttpClient,
@@ -111,7 +113,8 @@ export class RegisterPage {
   fetchRegister() {
     let map = new TSMap();
     map.set('email', this.registrantEmail);
-    map.set('name', this.registrantName);
+    map.set('firstName', this.firstName);
+    map.set('lastName', this.lastName);
     map.set('password', this.registrantPassword);
     map.set('contacts', this.contacts);
     let message = map.toJSON();

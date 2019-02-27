@@ -21,6 +21,7 @@ export class FilterPage {
   slots: any;
   amenity: any;
   amenities: string[] = [];
+  rating: number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -39,7 +40,8 @@ export class FilterPage {
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,
       slots: this.slots,
-      amenities: this.amenities
+      amenities: this.amenities,
+      rating: this.rating
     });
   }
 

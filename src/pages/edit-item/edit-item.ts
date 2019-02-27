@@ -74,7 +74,6 @@ export class EditItemPage {
     map.set('price', this.transient.price);
     map.set('description', this.transient.description);
     map.set('slots', this.transient.slots);
-    map.set('reviews', this.transient.reviews);
     map.set('amenities', this.transient.amenities);
     this.storage.get('irent-token').then(token => {
       let url = Host.host + "/api/houses?token=" + token;
@@ -101,29 +100,51 @@ export class EditItemPage {
   }
 
   delete(reservation) {
-    let loading = this.loadingController.create({content: "Creating Item..."});
-    loading.present();
-    this.storage.get('irent-token').then(token => {
-      let url = Host.host + "/api/reservations/" + reservation.id + "?token=" + token;
-      this.http.delete(url).pipe().toPromise().then(response => {
-        loading.dismissAll();
-        let alert = this.alertCtrl.create({
-          title: response['status'],
-          subTitle: response['message'],
-          buttons: ['Ok']
-        });
-        // add loading
-        alert.present();
-      }).then(_ => {
-        this.storage.get('irent-token').then(token => {
-          let url = Host.host + "/api/reservations/users/" + this.transient.id + "?token=" + token;
-          this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
-            console.log(response);
-            this.reservations = response['message'];
-          })
-        })
-      })
-    })
+
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+            let loading = this.loadingController.create({content: "Deleting..."});
+            loading.present();
+            this.storage.get('irent-token').then(token => {
+              let url = Host.host + "/api/reservations/" + reservation.id + "?token=" + token;
+              this.http.delete(url).pipe().toPromise().then(response => {
+                loading.dismissAll();
+                let alert = this.alertCtrl.create({
+                  title: response['status'],
+                  subTitle: response['message'],
+                  buttons: ['Ok']
+                });
+                // add loading
+                alert.present();
+              }).then(_ => {
+                this.storage.get('irent-token').then(token => {
+                  let url = Host.host + "/api/reservations/users/" + this.transient.id + "?token=" + token;
+                  this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+                    console.log(response);
+                    this.reservations = response['message'];
+                  })
+                })
+              })
+            })
+
+            //kore
+          }
+        }
+      ]
+    });
+
+    alert.present();
 
   }
 
@@ -192,7 +213,7 @@ export class EditItemPage {
                     console.log(this.coverPic);
                     let alert = this.alertCtrl.create({
                       title: response['status'],
-                      subTitle: response['message'],
+                      subTitle: 'Successfully uploaded!',
                       buttons: ['Ok']
                     });
                     // add loading

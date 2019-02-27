@@ -12,29 +12,50 @@
 
   <button ion-button (click)="createItem()">Add Listing</button>
 
-  <ion-card class="ioncard" *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
-    <div class="one">
-      <span class="helper"></span>
-      <img class="maximg" src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
-    </div>
-    <div class="two">
-      <!--<ion-card-header>-->
-      <ion-card-content>
-        <h6>
-          {{transient.reviews}}/5 reviews!
-        </h6>
-        <!--<ion-card-title>-->
-        <h2>
+  <ion-card *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
+
+    <img src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
+
+
+    <!--<ion-card-header>-->
+    <ion-card-content>
+      <!--<ion-card-title>-->
+      <h1 class="crop">
+        <b>
           {{transient.title}}
-        </h2>
-        <!--</ion-card-title>-->
-        <!--</ion-card-header>-->
-        {{transient.street}},
-        {{transient.city}},
-        {{transient.state}},
-        {{transient.country}}
-      </ion-card-content>
-    </div>
+        </b>
+      </h1>
+
+      {{transient.average != null ? transient.average : ""}}
+      <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 0"></ion-icon>
+      <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 1"></ion-icon>
+      <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 2"></ion-icon>
+      <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 3"></ion-icon>
+      <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 4"></ion-icon>
+      <ion-icon name="star-outline" *ngIf="transient.stars.length <= 0"></ion-icon>
+      <ion-icon name="star-outline" *ngIf="transient.stars.length <= 1"></ion-icon>
+      <ion-icon name="star-outline" *ngIf="transient.stars.length <= 2"></ion-icon>
+      <ion-icon name="star-outline" *ngIf="transient.stars.length <= 3"></ion-icon>
+      <ion-icon name="star-outline" *ngIf="transient.stars.length <= 4"></ion-icon>
+      {{transient.houseReviews.length > 0 ? transient.houseReviews.length : ""}}
+      <h6>
+        ₱ {{transient.price}}
+      </h6>
+
+
+      {{transient.street}},
+      {{transient.city}},
+      {{transient.state}},
+      {{transient.country}}
+
+      {{transient.slots}} units available
+
+      <!--{{transient.}}-->
+      <!--<rating class="starsize" [rate]="transient.average"-->
+      <!--readonly="false" style="zoom:0.5;">-->
+      <!--</rating>-->
+    </ion-card-content>
+
   </ion-card>
 
 

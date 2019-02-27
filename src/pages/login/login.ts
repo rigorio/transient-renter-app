@@ -1,5 +1,13 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, Nav, NavController, NavParams} from 'ionic-angular';
+import {
+  AlertController,
+  IonicPage,
+  LoadingController,
+  MenuController,
+  Nav,
+  NavController,
+  NavParams
+} from 'ionic-angular';
 import {MenuPage} from "../menu/menu";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Host} from "../host";
@@ -22,9 +30,9 @@ export class LoginPage {
               public storage: Storage,
               private http: HttpClient,
               private loadingController: LoadingController,
+              public menu: MenuController,
               private alertCtrl: AlertController) {
-
-
+    // this.menu.enable(false, 'leftMenu');
   }
 
   ionViewDidLoad() {

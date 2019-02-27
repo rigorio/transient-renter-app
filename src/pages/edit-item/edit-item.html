@@ -7,12 +7,12 @@
 
 <ion-content padding>
   <ion-card>
-    <ion-item>
-      <ion-label id="profile_image" stacked>Select Image</ion-label>
-      <ion-input type="file" accept=".png, .jpg" (change)="selectFile($event)">
-        Upload Image
-      </ion-input>
-    </ion-item>
+    <!--<ion-item>-->
+      <!--<ion-label id="profile_image" stacked>Select Image</ion-label>-->
+      <!--<ion-input type="file" accept=".png, .jpg, .jpeg" (change)="selectFile($event)">-->
+        <!--Upload Image-->
+      <!--</ion-input>-->
+    <!--</ion-item>-->
 
     <img src="{{coverPic}}" alt="no img selected" *ngIf="coverPic!=null"/>
     <button ion-button (click)="androidFile()">Replace image</button>
@@ -85,7 +85,7 @@
 
     <ion-row *ngFor="let amenity of transient.amenities" class="login-button">
       <ion-list>
-        <button class="login-button" ion-item (click)="deleteAmenity(amenity)">
+        <button ion-item (click)="deleteAmenity(amenity)">
           {{amenity}}
           <ion-icon name="close"></ion-icon>
         </button>
@@ -96,52 +96,33 @@
     <button ion-button (click)="deleteItem()" color="danger" float="right">Delete</button>
   </ion-card>
 
+  <hr>
   <ion-card>
     <ion-card-header>
       Reservations
     </ion-card-header>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          Name
-        </ion-col>
-        <ion-col>
-          Contacts
-        </ion-col>
-        <ion-col>
-          Arrival
-        </ion-col>
-        <ion-col>
-          Departure
-        </ion-col>
-        <ion-col>
-
-        </ion-col>
-      </ion-row>
-
-      <ion-row *ngFor="let reservation of reservations">
-        <ion-col>
-          {{reservation.name}}
-        </ion-col>
-        <ion-col>
-          <ion-list *ngFor="let contact of reservation.contacts">
-            {{contact}}
-          </ion-list>
-        </ion-col>
-        <ion-col>
-          {{reservation.checkIn}}
-        </ion-col>
-        <ion-col>
-          {{reservation.checkOut == null ? 'Long term' : reservation.checkOut}}
-        </ion-col>
-        <ion-col>
-          <button class="icon" (click)="delete(reservation)" ion-button color="danger" clear icon-only>
-            <ion-icon name='trash'></ion-icon>
-          </button>
-        </ion-col>
-      </ion-row>
-
-    </ion-grid>
+    <ion-card *ngFor="let reservation of reservations">
+      <ion-card-header>
+        {{reservation.name}}
+      </ion-card-header>
+      <ion-card-content>
+        Check In: {{reservation.checkIn}}
+      </ion-card-content>
+      <ion-card-content>
+        Check Out: {{reservation.checkOut == null ? 'Long term' : reservation.checkOut}}
+      </ion-card-content>
+      <ion-card-header>
+        Contacts
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list *ngFor="let contact of reservation.contacts">
+          {{contact}}
+        </ion-list>
+        <button class="login-button" (click)="delete(reservation)" ion-button color="danger">
+          Cancel Reservation
+        </button>
+      </ion-card-content>
+    </ion-card>
   </ion-card>
 
 

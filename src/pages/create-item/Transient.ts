@@ -11,13 +11,15 @@ export class Transient {
   state: any;
   country: any;
   price: any;
+  stars: number[];
   description: any;
   slots: any;
   average: number;
-  reviews: Review[] = [];
+  houseReviews: Review[] = [];
 
   constructor(id: any, coverPic: any, title: any, propertyType: any, amenities: string[],
               street: any, city: any, state: any, country: any, price: any,
+              stars: number[],
               description: any, slots: any, average: number, reviews: Review[]) {
     this.id = id;
     this.coverPic = coverPic;
@@ -28,10 +30,11 @@ export class Transient {
     this.city = city;
     this.state = state;
     this.country = country;
+    this.stars = stars;
     this.price = price;
     this.description = description;
     this.slots = slots;
     this.average = average;
-    this.reviews = reviews;
+    this.houseReviews = reviews;
   }
 }

@@ -12,12 +12,12 @@
 
   <!--<button ion-button (click)="filepicker()">Add Image</button>-->
 
-  <ion-item>
-    <ion-label id="profile_image" stacked>Select Image</ion-label>
-    <ion-input type="file" accept=".png, .jpg, .jpeg" (change)="selectFile($event)">
-      Upload Image
-    </ion-input>
-  </ion-item>
+  <!--<ion-item>-->
+    <!--<ion-label id="profile_image" stacked>Select Image</ion-label>-->
+    <!--<ion-input type="file" accept=".png, .jpg, .jpeg" (change)="selectFile($event)">-->
+      <!--Upload Image-->
+    <!--</ion-input>-->
+  <!--</ion-item>-->
 
   <button ion-button (click)="androidFile()">Upload image</button>
 
@@ -92,7 +92,7 @@
 
   <ion-row *ngFor="let amenity of amenities" class="login-button">
     <ion-list>
-      <button class="login-button" ion-item (click)="deleteAmenity(amenity)">
+      <button ion-item (click)="deleteAmenity(amenity)">
         {{amenity}}
         <ion-icon name="close" item-end></ion-icon>
       </button>

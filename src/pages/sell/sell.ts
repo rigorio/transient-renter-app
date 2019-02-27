@@ -28,6 +28,16 @@ export class SellPage {
       let url = Host.host + "/api/account/houses?token=" + token;
       this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
         this.transients = response['message'];
+        console.log(this.transients);
+        this.transients.forEach(transient => {
+          transient.stars = [];
+          for (let i = 0; i < transient.average; i++) {
+            transient.stars.push(i)
+          }
+        });
+
+        console.log(this.transients);
+
       })
     });
 

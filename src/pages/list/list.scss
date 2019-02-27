@@ -9,35 +9,14 @@ page-list {
   width: 100%;
 }
 
-.container {
-  width: 80%;
-  height: 200px;
-  background: aqua;
-  margin: auto;
-  padding: 10px;
+.cardsize {
+  max-width: 40%;
 }
 
-.one {
-  width: 30%;
-  //height: 100%;
-  //display: block;
-  float: left;
-  vertical-align: middle;
-  display: flex!important;
-  align-content: center!important;
-  align-items: center!important;
+.star-color {
+  color: #ffd700;
 }
 
-.two {
-  padding-left: 30%;
-  //margin-left: 30%;
-  height: 200px;
-}
-
-.imago {
-  max-height: 100%;
-}
-
-.ioncard {
-  max-height: 15%;
+ion-card {
+  box-shadow: none !important;
 }

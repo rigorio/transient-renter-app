@@ -7,6 +7,7 @@ import {Host} from "../host";
 import {SelectItemPage} from "../select-item/select-item";
 import {Transient} from "../create-item/Transient";
 import {FilterPage} from "../filter/filter";
+import {LoginPage} from "../login/login";
 
 @Component({
   selector: 'page-list',
@@ -25,6 +26,7 @@ export class ListPage {
   maxPrice = 0;
   slots: any;
   amenities: string[] = [];
+  rating: number = 1;
 
   constructor(
     public nav: NavController,
@@ -36,12 +38,11 @@ export class ListPage {
     public modalCtrl: ModalController
   ) {
 
-    let loading = this.loadingController.create({content: "Fetching Items..."});
-    loading.present();
     let url = Host.host + "/api/houses";
     this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
-      loading.dismissAll();
+      console.log(response);
       this.transients = response['message'];
+      console.log(this.transients);
     }).then(_ => {
       let tempTransients: Transient[];
       tempTransients = this.transients;
@@ -100,9 +101,30 @@ export class ListPage {
           });
         }
       }
+
+      this.rating = this.navParams.get('rating');
+      if (this.rating != null) {
+        tempTransients = tempTransients.filter(transient => {
+          return transient.average >= this.rating;
+        })
+
+      }
+
+
       this.transients = tempTransients;
       // if (tempTransients != null && tempTransients.length > 0)
       //   this.transients = tempTransients;
+    }).then(_ => {
+      console.log(this.transients);
+      this.transients.forEach(transient => {
+        transient.stars = [];
+        for (let i = 0; i < transient.average; i++) {
+          transient.stars.push(i)
+        }
+      });
+
+      console.log(this.transients);
+
     });
 
   }
@@ -147,19 +169,20 @@ export class ListPage {
   }
 
   clear() {
-    let loading = this.loadingController.create({content: "Loading..."});
-    let url = Host.host + "/api/houses";
-    loading.present();
-    this.keyword = "";
-    this.propertyType = null;
-    this.minPrice = null;
-    this.maxPrice = null;
-    this.slots = null;
-    this.amenities = null;
-    this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
-      loading.dismissAll();
-      this.transients = response['message'];
-    })
+    this.nav.setRoot(ListPage);
+    // let loading = this.loadingController.create({content: "Loading..."});
+    // let url = Host.host + "/api/houses";
+    // loading.present();
+    // this.keyword = "";
+    // this.propertyType = null;
+    // this.minPrice = null;
+    // this.maxPrice = null;
+    // this.slots = null;
+    // this.amenities = null;
+    // this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+    //   loading.dismissAll();
+    //   this.transients = response['message'];
+    // })
   }
 
 

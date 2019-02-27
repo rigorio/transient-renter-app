@@ -160,7 +160,7 @@ export class CreateItemPage {
                     console.log(this.coverPic);
                     let alert = this.alertCtrl.create({
                       title: response['status'],
-                      subTitle: response['message'],
+                      subTitle: 'Successfully uploaded!',
                       buttons: ['Ok']
                     });
                     // add loading

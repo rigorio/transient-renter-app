@@ -13,24 +13,19 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <img src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
   <ion-card>
-    <img src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
     <ion-card-header>
+      <h6>{{transient.propertyType.toUpperCase()}} - {{transient.slots}} UNITS</h6>
+      <p></p>
       <ion-card-title text-wrap>{{transient.title}}</ion-card-title>
-      <p>₱ {{transient.price}}</p>
     </ion-card-header>
 
     <ion-card-content>
-      <p>{{transient.propertyType}}</p>
       <p>{{transient.description}}</p>
-      <p>Average Ratings: {{transient.average}}/5</p>
-      <p>Available: {{transient.slots}} units</p>
     </ion-card-content>
-
-  </ion-card>
-
-  <ion-card>
+    <hr>
     <ion-card-header>Location</ion-card-header>
     <ion-card-content>
       {{transient.street}},
@@ -38,70 +33,103 @@
       {{transient.state}},
       {{transient.country}}
     </ion-card-content>
-  </ion-card>
+    <hr>
 
-  <ion-card>
     <ion-card-header>Amenities</ion-card-header>
     <ion-card-content>
-      <ion-label *ngFor="let amenity of transient.amenities">
-        {{amenity}}
-      </ion-label>
+
+      <ion-list>
+        <li *ngFor="let amenity of transient.amenities">
+          <ion-icon name="arrow-dropright"></ion-icon>
+          {{amenity}}
+        </li>
+      </ion-list>
+
     </ion-card-content>
-  </ion-card>
 
-
-  <ion-card *ngIf="show">
-    <ion-card-header>
-      <ion-card-title>Make a reservation</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-      <ion-item>
-        <ion-label>Check In:</ion-label>
-        <ion-datetime min="2019" max="2099-10-31" [(ngModel)]="arrival"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Check Out:</ion-label>
-        <ion-datetime min="2019" max="2099-10-31" [(ngModel)]="departure"></ion-datetime>
-      </ion-item>
-      <button ion-button (click)="book()">Book</button>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card *ngIf="!show">
-    <ion-card-header>Reservation</ion-card-header>
-    <ion-card-content>
+    <hr *ngIf="show">
+    <hr *ngIf="!show">
+    <ion-card-header *ngIf="!show">Reservation</ion-card-header>
+    <ion-card-content *ngIf="!show">
       Check In: {{checkIn}}
     </ion-card-content>
-    <ion-card-content>
+
+    <ion-card-content *ngIf="!show">
       Check Out: {{checkOut == null ? 'Long term' : checkOut}}
     </ion-card-content>
-  </ion-card>
+    <hr *ngIf="!show">
 
-  <ion-card>
+
+    <ion-card-header>
+      Host
+    </ion-card-header>
     <ion-card-content>
-
-      <ion-label>
-        Contact Details:
-      </ion-label>
+    <img class="host" src="{{ owner.profPic }}" alt="no pic added" *ngIf="owner.profPic!=null"/>
       <ion-label>
         <b>
-          {{owner.name}}
+          {{owner.firstName}} {{owner.lastName}}
         </b>
       </ion-label>
       <ion-list *ngFor="let contact of owner.contacts">
         {{contact}}
       </ion-list>
     </ion-card-content>
+
+    <hr *ngIf="transient.houseReviews.length>0">
+    <ion-card-header>
+      <ion-card-title>Reviews</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content *ngFor="let review of transient.houseReviews">
+      <ion-card-content>
+        {{review.score}}/5
+      </ion-card-content>
+      <ion-card-content>
+        {{review.review}}
+      </ion-card-content>
+    </ion-card-content>
+    <hr>
+
   </ion-card>
 
-  <button *ngIf="show" color="primary" class="login-button" ion-button (click)="viewReviews()">View reviews</button>
+  <ion-card text-center>
 
-  <button *ngIf="!show" color="primary" class="login-button" ion-button (click)="review()">Leave a review</button>
-  <br>
-  <br>
-  <br>
-  <button *ngIf="!show" color="danger" class="login-button" ion-button (click)="cancel()">Cancel Booking</button>
+    <!--<button *ngIf="show" color="primary" class="login-button" ion-button (click)="viewReviews()">View reviews</button>-->
+    <!--<button *ngIf="show" class="gitna" ion-button (click)="viewReviews()">View Reviews</button>-->
+
+  </ion-card>
 
 
 </ion-content>
+<ion-footer style="background-color: white" padding>
+  <!--<ion-toolbar style="background-color: white" color="#fff">-->
+  <ion-row>
+    <ion-col>
+
+      <h6> ₱ {{transient.price}}</h6>
+      <p>
+
+        {{transient.average != null ? transient.average : ""}}
+        <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 0"></ion-icon>
+        <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 1"></ion-icon>
+        <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 2"></ion-icon>
+        <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 3"></ion-icon>
+        <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 4"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="transient.stars.length <= 0"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="transient.stars.length <= 1"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="transient.stars.length <= 2"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="transient.stars.length <= 3"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="transient.stars.length <= 4"></ion-icon>
+        {{transient.houseReviews.length > 0 ? transient.houseReviews.length : ""}}
+      </p>
+    </ion-col>
+    <ion-col text-center>
+      <button *ngIf="show" class="gitna" ion-button (click)="reserbation()">Make a reservation</button>
+      <button *ngIf="!show" color="primary" class="login-button" ion-button (click)="review()">Leave a review</button>
+      <button *ngIf="!show" color="danger" class="login-button" ion-button (click)="cancel()">Cancel Booking</button>
+    </ion-col>
+
+
+  </ion-row>
+  <!--</ion-toolbar>-->
+</ion-footer>

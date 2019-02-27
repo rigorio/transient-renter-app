@@ -11,6 +11,8 @@ import {Reservation} from "../create-item/Reservation";
 import {ListPage} from "../list/list";
 import {ReviewsPage} from "../reviews/reviews";
 import {ReviewpagePage} from "../reviewpage/reviewpage";
+import {CheckinPage} from "../checkin/checkin";
+import {User} from "../edit-item/User";
 
 @Component({
   selector: 'page-select-item',
@@ -23,9 +25,10 @@ export class SelectItemPage {
 
   transient: Transient;
   reservation: Reservation;
-  owner: { id: number, email: string, name: string, contacts: string[] };
+  owner: User;
   departure: string;
   arrival: string;
+  longTerm: boolean;
 
   constructor(public nav: NavController,
               public navParams: NavParams,
@@ -42,6 +45,7 @@ export class SelectItemPage {
     if (this.reservation != null) {
       this.checkIn = this.reservation.checkIn;
       this.checkOut = this.reservation.checkOut;
+      let stars: number[] = [];
       this.transient = new Transient(
         this.reservation.houseId,
         this.reservation.coverPic,
@@ -53,11 +57,14 @@ export class SelectItemPage {
         this.reservation.state,
         this.reservation.country,
         this.reservation.price,
+        stars,
         this.reservation.description,
         this.reservation.slots,
         this.reservation.average,
-        this.reservation.reviews
+        this.reservation.reservationReviews
       );
+      if (this.transient.houseReviews == undefined)
+        this.transient.houseReviews = [];
     } else {
       this.transient = navParams.get('item');
     }
@@ -69,8 +76,11 @@ export class SelectItemPage {
     this.owner = {
       id: 1,
       email: '',
-      name: '',
-      contacts: []
+      contacts: [],
+      verified: false,
+      profPic: '',
+      firstName: '',
+      lastName: ''
     };
     let url = Host.host + "/api/houses/" + this.transient.id + "/user";
     this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
@@ -87,6 +97,12 @@ export class SelectItemPage {
     console.log('ionViewDidLoad SelectItemPage');
   }
 
+  reserbation() {
+    this.nav.push(CheckinPage, {
+      houseId: this.transient.id
+    })
+  }
+
   book() {
     if (this.arrival == null) {
       let alert = this.alertCtrl.create({
@@ -101,10 +117,12 @@ export class SelectItemPage {
     loading.present();
     let map = new TSMap();
     console.log(this.arrival);
-    console.log(this.departure);
     let stay = new TSMap();
     stay.set('checkIn', this.arrival);
     // if (this.checkOut != null)
+    if (this.longTerm)
+      this.departure = undefined;
+    console.log(this.departure);
     stay.set('checkOut', this.departure);
     map.set('houseId', this.transient.id);
     map.set('stay', stay.toJSON());
@@ -133,19 +151,41 @@ export class SelectItemPage {
   }
 
   cancel() {
-    this.storage.get("irent-token").then(token => {
-      let url = Host.host + "/api/reservations/" + this.reservation.id + "?token=" + token;
-      this.http.delete<HttpResponse>(url).pipe().toPromise().then(response => {
-        let alert = this.alertCtrl.create({
-          title: response.status,
-          message: response.message,
-          buttons: ['Ok']
-        });
-        // add loading
-        alert.present();
-        this.nav.pop();
-      })
-    })
+
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm: blah');
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+            this.storage.get("irent-token").then(token => {
+              let url = Host.host + "/api/reservations/" + this.reservation.id + "?token=" + token;
+              this.http.delete<HttpResponse>(url).pipe().toPromise().then(response => {
+                let alert = this.alertCtrl.create({
+                  title: response.status,
+                  message: response.message,
+                  buttons: ['Ok']
+                });
+                // add loading
+                alert.present();
+                this.nav.pop();
+              })
+            })
+          }
+        }
+      ]
+    });
+
+    alert.present();
+
+
   }
 
   review() {

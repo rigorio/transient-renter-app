@@ -6,15 +6,17 @@ import {LoginPage} from "../pages/login/login";
 import {Storage} from "@ionic/storage";
 import {HttpClient} from "@angular/common/http";
 import {MenuPage} from "../pages/menu/menu";
+import {Host} from "../pages/host";
+import {HttpResponse} from "../pages/HttpResponse";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
+  rootPage: any;
   // rootPage = LoginPage;
-  rootPage = MenuPage;
+  // rootPage = MenuPage;
   owner: Array<{ id: number, email: string, name: string, contacts: string[] }> = [];
 
   constructor(public platform: Platform,
@@ -23,8 +25,25 @@ export class MyApp {
               public http: HttpClient,
               public storage: Storage,
               public loadingController: LoadingController) {
-    storage.clear();
-    storage.set('irent-token', 'ce9369ed-029c-435c-8bfa-8b7f08b59a52');
+    // storage.clear();
+    // storage.set('irent-token', '485404b0-8a68-4c6f-97a8-345dea5b2315').then(_=> {
+
+    storage.get('irent-token').then(token => {
+      console.log("hatdog");
+      console.log(token);
+      if (token == null) {
+        this.rootPage = LoginPage;
+      } else {
+        let url = Host.host + "/api/valid?token=" + token;
+        this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+          if (response.message == false)
+            this.rootPage = LoginPage;
+          else if (response.message == true)
+            this.rootPage = MenuPage;
+        })
+      }
+    })
+    // });
     // let loading = loadingController.create({content: "Please wait..."});
     // // loading.present();
     // //     loading.dismissAll();

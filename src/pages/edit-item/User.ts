@@ -1,15 +1,21 @@
 export class User {
   id: number;
+  profPic: string;
   email: string;
-  name: string;
+
+  firstName: string;
+  lastName: string;
   contacts: string[];
   verified: boolean;
 
-  constructor(id: number, email: string, name: string, contacts: string[], verified: boolean) {
+  constructor(id: number, email: string, contacts: string[], verified: boolean,
+              profPic: string, firstName: string, lastName: string) {
     this.id = id;
     this.email = email;
-    this.name = name;
     this.contacts = contacts;
     this.verified = verified;
+    this.profPic = profPic;
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 }

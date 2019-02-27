@@ -29,12 +29,23 @@ export class ReservationsPage {
               private loadingController: LoadingController,
               private alertCtrl: AlertController
   ) {
-    console.log("heh");
+
     this.storage.get('irent-token').then(token => {
       let url = Host.host + "/api/reservations/houses?token=" + token;
       this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
-        console.log(response);
+        // console.log(response);
         this.reservations = response['message'];
+        console.log(this.reservations);
+
+        this.reservations.forEach(reservation => {
+          reservation.stars = [];
+          for (let i = 0; i < reservation.average; i++) {
+            reservation.stars.push(i)
+          }
+        });
+        console.log(this.reservations);
+
+
       })
     })
   }
@@ -52,7 +63,7 @@ export class ReservationsPage {
     this.storage.get('irent-token').then(token => {
       let url = Host.host + "/api/reservations/houses?token=" + token;
       this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
-        console.log(response);
+        // console.log(response);
         this.reservations = response['message'];
       })
     })

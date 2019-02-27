@@ -24,6 +24,9 @@ import {FilterPage} from "../pages/filter/filter";
 import {EditAccountPage} from "../pages/edit-account/edit-account";
 import {ReviewsPage} from "../pages/reviews/reviews";
 import {ReviewpagePage} from "../pages/reviewpage/reviewpage";
+import {StarRatingModule} from "ionic3-star-rating";
+import {IonicRatingModule} from "ionic-rating/dist";
+import {CheckinPage} from "../pages/checkin/checkin";
 
 @NgModule({
   declarations: [
@@ -41,11 +44,14 @@ import {ReviewpagePage} from "../pages/reviewpage/reviewpage";
     FilterPage,
     EditAccountPage,
     ReviewsPage,
-    ReviewpagePage
+    ReviewpagePage,
+    CheckinPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    StarRatingModule,
+    IonicRatingModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -65,7 +71,8 @@ import {ReviewpagePage} from "../pages/reviewpage/reviewpage";
     FilterPage,
     EditAccountPage,
     ReviewsPage,
-    ReviewpagePage
+    ReviewpagePage,
+    CheckinPage
   ],
   providers: [
     StatusBar,
