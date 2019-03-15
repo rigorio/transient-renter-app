@@ -14,9 +14,31 @@ page-list {
 }
 
 .star-color {
-  color: #ffd700;
+  color: #ea3f4f;
 }
 
 ion-card {
   box-shadow: none !important;
+}
+
+.cardo {
+  width: 40%;
+  display: inline-block;
+}
+
+.sb {
+  width: 100%;
+}
+
+.limit {
+  height: 100px;
+  object-fit: cover;
+}
+
+.container {
+
+}
+
+.contentt {
+  font-size: 60%;
 }

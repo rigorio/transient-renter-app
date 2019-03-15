@@ -24,9 +24,10 @@ import {HttpResponse} from "../HttpResponse";
 export class MenuPage {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage = ListPage;
   pages: Array<{ title: string, component: any }>;
-
+  tab1Root = ListPage;
+  tab3Root = ReservationsPage;
+  tab4Root = AccountPage;
 
   constructor(public menu: MenuController,
               public storage: Storage,
@@ -34,12 +35,6 @@ export class MenuPage {
               public navParams: NavParams) {
 
 
-    this.pages = [
-      {title: 'Listings', component: ListPage},
-      {title: 'My Listings', component: SellPage},
-      {title: 'My Reservations', component: ReservationsPage},
-      {title: 'Edit Account', component: EditAccountPage}
-    ];
 
   }
 
@@ -48,36 +43,4 @@ export class MenuPage {
   }
 
 
-  openPage(page) {
-    // close the menu when clicking a link from the menu
-    this.menu.close();
-    // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
-  }
-
-  logout() {
-
-    let alert = this.alertCtrl.create({
-      title: 'Are you sure?',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
-          text: 'Yes',
-          handler: () => {
-            this.storage.clear().then(_ => this.nav.setRoot(LoginPage))
-
-            //kore
-          }
-        }
-      ]
-    });
-
-    alert.present();
-  }
 }

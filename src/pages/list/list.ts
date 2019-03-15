@@ -8,6 +8,7 @@ import {SelectItemPage} from "../select-item/select-item";
 import {Transient} from "../create-item/Transient";
 import {FilterPage} from "../filter/filter";
 import {LoginPage} from "../login/login";
+import {TSMap} from "typescript-map";
 
 @Component({
   selector: 'page-list',
@@ -22,11 +23,13 @@ export class ListPage {
   keyword: string;
 
   propertyType: any;
-  minPrice = 0;
-  maxPrice = 0;
+  minPrice: number;
+  maxPrice: number;
   slots: any;
   amenities: string[] = [];
   rating: number = 1;
+  sortedRating: string;
+  pattern = "[A-Za-z]";
 
   constructor(
     public nav: NavController,
@@ -38,84 +41,32 @@ export class ListPage {
     public modalCtrl: ModalController
   ) {
 
-    let url = Host.host + "/api/houses";
-    this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+    let url = Host.host + "/api/houses/filter";
+    console.log("dito ba?");
+    this.keyword = this.navParams.get("keyword");
+    this.propertyType = this.navParams.get("propertyType");
+    this.minPrice = this.navParams.get("minPrice");
+    this.maxPrice = this.navParams.get("maxPrice");
+    this.amenities = this.navParams.get("amenities");
+    this.slots = this.navParams.get("slots");
+    this.rating = this.navParams.get('rating');
+    this.sortedRating = this.navParams.get('sortedRating');
+    let map = new TSMap();
+    map.set('keyword', this.keyword);
+    map.set('propertyType', this.propertyType);
+    map.set('minPrice', this.minPrice);
+    map.set('maxPrice', this.maxPrice);
+    map.set('slots', this.slots);
+    map.set('rating', this.rating);
+    map.set('amenities', this.amenities);
+    map.set('sortedRating', this.sortedRating);
+    console.log("oo dito");
+    let message = map.toJSON()
+    this.http.post<HttpResponse>(url, message, Host.httpOptions).pipe().toPromise().then(response => {
       console.log(response);
       this.transients = response['message'];
       console.log(this.transients);
     }).then(_ => {
-      let tempTransients: Transient[];
-      tempTransients = this.transients;
-      console.log(tempTransients);
-      this.keyword = this.navParams.get("keyword");
-      if (this.keyword != null) {
-        tempTransients = tempTransients.filter(transient => {
-          return this.lc(transient.title).includes(this.lc(this.keyword)) ||
-            this.lc(transient.country).includes(this.lc(this.keyword)) ||
-            this.lc(transient.city).includes(this.lc(this.keyword)) ||
-            this.lc(transient.state).includes(this.lc(this.keyword)) ||
-            this.lc(transient.street).includes(this.lc(this.keyword))
-        });
-        console.log(tempTransients);
-      }
-      this.propertyType = this.navParams.get("propertyType");
-      console.log("eh " + this.propertyType != null);
-      if (this.propertyType != null) {
-        console.log(this.transients);
-        console.log("ehhh??");
-        tempTransients = tempTransients.filter(transient => {
-          return transient.propertyType == this.propertyType;
-        });
-        console.log(tempTransients);
-      }
-      this.minPrice = this.navParams.get("minPrice");
-      this.maxPrice = this.navParams.get("maxPrice");
-      console.log(this.minPrice + " aha " + this.maxPrice);
-      if (this.minPrice != null || this.maxPrice != null) {
-        if (this.minPrice != 0 && this.maxPrice != 0) {
-
-          console.log("woat");
-          tempTransients = tempTransients.filter(transient => {
-
-            let b = transient.price <= this.maxPrice;
-            let b1 = transient.price >= this.minPrice;
-            // console.log(b + " bbbb " + b1);
-            let b2 = b && b1;
-            // console.log("b2 " + b2);
-            return b2;
-          });
-        }
-      }
-      this.slots = this.navParams.get("slots");
-      if (this.slots != null) {
-        tempTransients = tempTransients.filter(transient => {
-          return transient.slots >= this.slots;
-        });
-      }
-      this.amenities = this.navParams.get("amenities");
-      if (this.amenities != null && this.amenities.length > 0) {
-        for (let amenity of this.amenities) {
-          console.log(amenity);
-          tempTransients = tempTransients.filter(transient => {
-            return transient.amenities.indexOf(amenity) > -1;
-          });
-        }
-      }
-
-      this.rating = this.navParams.get('rating');
-      if (this.rating != null) {
-        tempTransients = tempTransients.filter(transient => {
-          return transient.average >= this.rating;
-        })
-
-      }
-
-
-      this.transients = tempTransients;
-      // if (tempTransients != null && tempTransients.length > 0)
-      //   this.transients = tempTransients;
-    }).then(_ => {
-      console.log(this.transients);
       this.transients.forEach(transient => {
         transient.stars = [];
         for (let i = 0; i < transient.average; i++) {
@@ -142,21 +93,26 @@ export class ListPage {
   search() {
     let loading = this.loadingController.create({content: "Loading..."});
     console.log(this.keyword);
-    let url = Host.host + "/api/houses";
+    let url = Host.host + "/api/houses/filter";
+    let map = new TSMap();
+    if (this.keyword.length > 0)
+      map.set('keyword', this.keyword);
+    let message = map.toJSON();
     loading.present();
-    this.http.get<HttpResponse>(url).pipe().toPromise().then(response => {
+    this.http.post<HttpResponse>(url, message, Host.httpOptions).pipe().toPromise().then(response => {
       loading.dismissAll();
+      console.log(response);
       this.transients = response['message'];
     }).then(_ => {
-      if (this.keyword.length > 0) {
-        this.transients = this.transients.filter(transient => {
-          return this.lc(transient.title).includes(this.lc(this.keyword)) ||
-            this.lc(transient.country).includes(this.lc(this.keyword)) ||
-            this.lc(transient.city).includes(this.lc(this.keyword)) ||
-            this.lc(transient.state).includes(this.lc(this.keyword)) ||
-            this.lc(transient.street).includes(this.lc(this.keyword))
-        });
-      }
+      this.transients.forEach(transient => {
+        transient.stars = [];
+        for (let i = 0; i < transient.average; i++) {
+          transient.stars.push(i)
+        }
+      });
+
+      console.log(this.transients);
+
     });
   }
 
@@ -186,4 +142,28 @@ export class ListPage {
   }
 
 
+  doRefresh(refresher) {
+    let map = new TSMap();
+    console.log("oo dito");
+    let url = Host.host + "/api/houses/filter";
+    let message = map.toJSON();
+    this.http.post<HttpResponse>(url, message, Host.httpOptions).pipe().toPromise().then(response => {
+      console.log(response);
+      this.transients = response['message'];
+      console.log(this.transients);
+    }).then(_ => {
+      this.transients.forEach(transient => {
+        transient.stars = [];
+        for (let i = 0; i < transient.average; i++) {
+          transient.stars.push(i)
+        }
+      });
+
+      console.log(this.transients);
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        refresher.complete();
+      }, 500);
+    });
+  }
 }

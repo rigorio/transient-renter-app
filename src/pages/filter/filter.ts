@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
 import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {ListPage} from "../list/list";
+import {HttpResponse} from "../HttpResponse";
+import {Host} from "../host";
+import {HttpClient} from "@angular/common/http";
 
 /**
  * Generated class for the FilterPage page.
@@ -16,16 +19,25 @@ import {ListPage} from "../list/list";
 export class FilterPage {
   keyword: any;
   propertyType: any;
-  minPrice = 0;
-  maxPrice = 0;
+  minPrice: number;
+  maxPrice: number;
   slots: any;
   amenity: any;
   amenities: string[] = [];
   rating: number;
+  amenns: string[];
+  amenn: any;
+  sortedRating: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              public http: HttpClient,
               private alertCtrl: AlertController) {
+    this.amenities = [];
+    this.http.get<HttpResponse>(Host.host + "/api/amenities").pipe().toPromise().then(response => {
+      console.log(response);
+      this.amenns = response.message;
+    });
   }
 
   ionViewDidLoad() {
@@ -33,7 +45,19 @@ export class FilterPage {
   }
 
   search() {
-    console.log(this.propertyType);
+    console.log(this.minPrice + " --- " + this.maxPrice);
+    console.log(this.maxPrice < this.minPrice);
+    if (this.maxPrice < this.minPrice) {
+      let alert = this.alertCtrl.create({
+        subTitle: "Maximum price cannot be lower then minimum price",
+        buttons: ['Ok']
+      });
+      // add loading
+      alert.present();
+      return;
+    }
+
+
     this.navCtrl.setRoot(ListPage, {
       keyword: this.keyword,
       propertyType: this.propertyType,
@@ -41,24 +65,25 @@ export class FilterPage {
       maxPrice: this.maxPrice,
       slots: this.slots,
       amenities: this.amenities,
-      rating: this.rating
+      rating: this.rating,
+      sortedRating: this.sortedRating
     });
   }
 
-  addAmenity(amenity) {
-    if (amenity == null || amenity.length < 3) {
+  addAmenity() {
+    if (this.amenn == null) {
       let alert = this.alertCtrl.create({
-        title: "Must be at least 3 characters",
+        subTitle: "Please select an amenity from the list",
         buttons: ['Ok']
       });
       // add loading
       alert.present();
       return;
     }
-    console.log(amenity);
-    this.amenities.push(amenity);
-    console.log(this.amenities);
+    if (!(this.amenities.indexOf(this.amenn) > -1))
+      this.amenities.push(this.amenn);
     this.amenity = "";
+
   }
 
   deleteAmenity(amenity) {

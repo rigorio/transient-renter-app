@@ -1,15 +1,17 @@
-<ion-header>
+<!--<ion-header>-->
 
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>My Reservations</ion-title>
-  </ion-navbar>
+<!--<ion-navbar color="primary">-->
+<!--<button ion-button menuToggle>-->
+<!--<ion-icon name="menu"></ion-icon>-->
+<!--</button>-->
+<!--<ion-title>My Reservations</ion-title>-->
+<!--</ion-navbar>-->
 
-</ion-header>
+<!--</ion-header>-->
 
 <ion-content>
+
+  <h1 style="color: #555F61" padding-left>My Reservations</h1>
 
   <ion-card *ngFor="let reservation of reservations" (click)="itemTapped($event, reservation)">
 

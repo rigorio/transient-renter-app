@@ -13,9 +13,10 @@ import {Storage} from "@ionic/storage";
 })
 export class CheckinPage {
   longTerm: boolean;
-  departure: string;
-  arrival: string;
+  departure: String = new Date().toISOString();
+  arrival: String = new Date().toISOString();
   houseId: any;
+  today: String = new Date().toISOString();
 
   constructor(public nav: NavController,
               public navParams: NavParams,
@@ -33,7 +34,7 @@ export class CheckinPage {
   book() {
     if (this.arrival == null) {
       let alert = this.alertCtrl.create({
-        title: "Please add Check In. If you wish to stay for an indefinite amount of time, leave the Check Out blank.",
+        subTitle: "Check In cannot be blank",
         buttons: ['Ok']
       });
       // add loading
@@ -41,15 +42,38 @@ export class CheckinPage {
       return;
     }
 
-    if (this.departure < this.arrival) {
+    if (this.arrival <= this.today) {
       let alert = this.alertCtrl.create({
-        title: "Please make sure your Check Out is not before your Check In",
+        subTitle: "Check In should be after today",
         buttons: ['Ok']
       });
       // add loading
       alert.present();
       return;
     }
+
+    if (this.departure < this.arrival && !this.longTerm) {
+      let alert = this.alertCtrl.create({
+        subTitle: "Check Out should not be before Check In",
+        buttons: ['Ok']
+      });
+      // add loading
+      alert.present();
+      return;
+    }
+
+    if (this.departure == this.arrival && !this.longTerm) {
+      let alert = this.alertCtrl.create({
+        subTitle: "Check Out should not be similar to Check In",
+        buttons: ['Ok']
+      });
+      // add loading
+      alert.present();
+      return;
+    }
+
+    this.arrival = this.arrival.split("T")[0];
+    this.departure = this.departure.split("T")[0];
 
     let loading = this.loadingController.create({content: "Please wait..."});
     loading.present();

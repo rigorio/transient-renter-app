@@ -91,7 +91,7 @@ export class CreateItemPage {
 
   cannotBeBlank(name) {
     let alert = this.alertCtrl.create({
-      title: name + " cannot be blank",
+      subTitle: name + " cannot be blank",
       buttons: ['Ok']
     });
     // add loading
@@ -247,16 +247,15 @@ export class CreateItemPage {
   addAmenity() {
     if (this.amenn == null) {
       let alert = this.alertCtrl.create({
-        title: "Please select an amenity from the list",
+        subTitle: "Please select an amenity from the list",
         buttons: ['Ok']
       });
       // add loading
       alert.present();
       return;
     }
-    console.log(this.amenn);
-    this.amenities.push(this.amenn);
-    console.log(this.amenities);
+    if (!(this.amenities.indexOf(this.amenn) > -1))
+      this.amenities.push(this.amenn);
     this.amenity = "";
 
   }

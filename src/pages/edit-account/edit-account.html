@@ -41,11 +41,11 @@
         <ion-col>
           <ion-item>
             <ion-label floating>Contact</ion-label>
-            <ion-input [(ngModel)]="contact"></ion-input>
+            <ion-input type="number" [(ngModel)]="contact"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
-          <button class="baton" (click)="addContact(contact)" ion-button color="secondary">
+          <button class="baton" (click)="addContact(contact)" ion-button color="primary" outline>
             Add Contact
           </button>
         </ion-col>

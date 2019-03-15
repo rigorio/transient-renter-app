@@ -3,14 +3,14 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>My Listings</ion-title>
+    <ion-title>My Items</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
 
-  <button ion-button (click)="createItem()">Add Listing</button>
+  <button ion-button (click)="createItem()">Add Item</button>
 
   <ion-card *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
 
@@ -18,9 +18,9 @@
 
 
     <!--<ion-card-header>-->
-    <ion-card-content>
+    <ion-card-content >
       <!--<ion-card-title>-->
-      <h1 class="crop">
+      <h1 class="crop" >
         <b>
           {{transient.title}}
         </b>

@@ -22,8 +22,8 @@ import {RegisterPage} from "../register/register";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  username: any;
-  password: any;
+  username: string;
+  password: string;
 
 
   constructor(public nav: NavController,
@@ -33,6 +33,8 @@ export class LoginPage {
               public menu: MenuController,
               private alertCtrl: AlertController) {
     // this.menu.enable(false, 'leftMenu');
+    this.username = "";
+    this.password = "";
   }
 
   ionViewDidLoad() {
@@ -42,9 +44,9 @@ export class LoginPage {
   login() {
     let loading = this.loadingController.create({content: "Logging in..."});
 
-    if (this.username == null || this.password == null) {
+    if (this.username.length < 1 || this.password.length < 1) {
       let alert = this.alertCtrl.create({
-        title: "Username or password cannot be blank",
+        subTitle: "Missing credentials!",
         buttons: ['Ok']
       });
       // add loading

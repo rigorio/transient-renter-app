@@ -1,22 +1,17 @@
-<ion-header>
-  <ion-navbar color = "primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Account</ion-title>
-  </ion-navbar>
-</ion-header>
+<!--<ion-header>-->
+  <!--<ion-navbar color="primary">-->
+    <!--<ion-title>Account</ion-title>-->
+  <!--</ion-navbar>-->
+<!--</ion-header>-->
 
 <ion-content padding>
-  <ion-card class="cards-list-demo">
-    <ion-card-header>
-      Settings
-    </ion-card-header>
-
-    <ion-list >
-      <button ion-item (click)="editAccount()">Edit Account</button>
-      <button ion-item (click)="viewReservations()">My Reservations</button>
-      <button ion-item (click)="logout()">Logout</button>
-    </ion-list>
-  </ion-card>
+  <h1 style="color: #555F61" padding-top>Your Account</h1>
+  <ion-list>
+    <button ion-item (click)="editAccount()">
+      <ion-icon name="contact" color="kuropink"></ion-icon>Edit Account</button>
+    <button ion-item (click)="viewReservations()">
+      <ion-icon name="home" color="kuropink"></ion-icon>My Items</button>
+    <button ion-item (click)="logout()">
+      <ion-icon name="power" color="kuropink"></ion-icon>Logout</button>
+  </ion-list>
 </ion-content>

@@ -1,37 +1,44 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
+  <ion-navbar>
+    <ion-searchbar placeholder="Tap here and press enter to search" animated [(ngModel)]="keyword"
+                   (search)="search()"></ion-searchbar>
+    <ion-row>
+      <ion-col>
+
+        <button outline class="sb" ion-button (click)="addFilter()">Advanced Search</button>
+      </ion-col>
+      <ion-col>
+
+        <button outline class="sb" ion-button (click)="clear()">Clear Filters</button>
+      </ion-col>
+    </ion-row>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-item>
-    <ion-label floating>Tap here to search</ion-label>
-    <ion-input [(ngModel)]="keyword" (change)="search()"></ion-input>
-  </ion-item>
-  <div padding>
-  <button ion-button (click)="addFilter()">Advanced Search</button>
-  <button ion-button (click)="clear()">Clear Filters</button>
-  </div>
+<ion-content text-center>
+  <!--<ion-item>-->
+  <!--<ion-label floating>Tap here to search</ion-label>-->
+  <!--<ion-input [pattern]="pattern" title="No special" [(ngModel)]="keyword" (change)="search()"></ion-input>-->
+  <!--</ion-item>-->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
 
-  <ion-card *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
+  <ion-card class="cardo" *ngFor="let transient of transients" (click)="itemTapped($event, transient)" text-left>
 
-    <img src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
+    <img class="limit" src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
 
 
     <!--<ion-card-header>-->
     <ion-card-content>
       <!--<ion-card-title>-->
       <h5>{{transient.propertyType}} - {{transient.slots}} units</h5>
-      <h1 class="crop">
+      <h3 class="crop">
         <b>
           {{transient.title}}
         </b>
-      </h1>
+      </h3>
 
       {{transient.average != null ? transient.average : ""}}
       <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 0"></ion-icon>

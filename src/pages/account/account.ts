@@ -1,10 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
-import {LoadingController, Nav, NavController} from 'ionic-angular';
+import {AlertController, App, LoadingController, Nav, NavController} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {Storage} from "@ionic/storage";
 import {ReservationsPage} from "../reservations/reservations";
 import {LoginPage} from "../login/login";
 import {EditAccountPage} from "../edit-account/edit-account";
+import {SellPage} from "../sell/sell";
 
 
 @Component({
@@ -17,27 +18,44 @@ export class AccountPage {
     public nav: NavController,
     public storage: Storage,
     public http: HttpClient,
+    private alertCtrl: AlertController,
+    private app: App,
     public loadingController: LoadingController) {
 
   }
 
   logout() {
-    /*    let loading = this.loadingController.create({content:"Logging out..."});
-        loading.present();
-        this.storage.get("irent-token").then(token => {
-          let url = Host.host + "/users/logout?token=" + token;
-          this.http.get<string>(url).pipe().toPromise().then(_ => {
-            this.storage.clear().then(r => {
-              loading.dismissAll();
-              this.navCtrl.setRoot(LoginPage);
+
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+            this.storage.clear().then(_ => {
+              this.app.getRootNav().setRoot(LoginPage);
+              // document.getElementById("tabs").style.display="None";
+              // this.nav.setRoot(LoginPage)
             })
-          })
-        })*/
-    this.storage.clear().then(_ => this.nav.setRoot(LoginPage))
+
+            //kore
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 
   viewReservations() {
-    this.nav.push(ReservationsPage);
+    this.nav.push(SellPage);
   }
 
   editAccount() {

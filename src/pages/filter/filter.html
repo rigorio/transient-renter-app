@@ -35,32 +35,45 @@
     </ion-select>
   </ion-item>
 
+  <ion-item>
+    <ion-label>Sort by rating</ion-label>
+    <ion-select [(ngModel)]="sortedRating">
+      <ion-option>None</ion-option>
+      <ion-option>Lowest</ion-option>
+      <ion-option>Highest</ion-option>
+    </ion-select>
+  </ion-item>
 
-  <div class="budget-range">
-    <ion-item>
-      <ion-label floating>Minimum Budget</ion-label>
-      <ion-input type="number" [(ngModel)]="minPrice"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Maximum Budget</ion-label>
-      <ion-input type="number" [(ngModel)]="maxPrice"></ion-input>
-    </ion-item>
-  </div>
+  <ion-item>
+    <ion-label floating>Minimum Budget</ion-label>
+    <ion-input type="number" [(ngModel)]="minPrice"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Maximum Budget</ion-label>
+    <ion-input type="number" [(ngModel)]="maxPrice"></ion-input>
+  </ion-item>
 
   <ion-item>
     <ion-label floating>Number of slots</ion-label>
     <ion-input type="number" [(ngModel)]="slots"></ion-input>
   </ion-item>
 
+
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label floating>Amenities</ion-label>
-        <ion-input [(ngModel)]="amenity"></ion-input>
+        <ion-label>Amenities</ion-label>
+        <ion-select [(ngModel)]="amenn">
+          <ion-option *ngFor="let a of amenns">{{a}}</ion-option>
+        </ion-select>
       </ion-item>
     </ion-col>
+  </ion-row>
+
+
+  <ion-row>
     <ion-col>
-      <button class="baton" (click)="addAmenity(amenity)" ion-button color="secondary">
+      <button (click)="addAmenity()" ion-button color="primary" outline>
         Add Amenity
       </button>
     </ion-col>
@@ -68,7 +81,7 @@
 
   <ion-row *ngFor="let amenity of amenities" class="login-button">
     <ion-list>
-      <button class="login-button" ion-item (click)="deleteAmenity(amenity)">
+      <button ion-item (click)="deleteAmenity(amenity)">
         {{amenity}}
         <ion-icon name="close" item-end></ion-icon>
       </button>

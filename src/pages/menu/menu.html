@@ -1,20 +1,6 @@
-<ion-menu [content]="content">
-
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>iRent</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-    <ion-list>
-      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
-      <button menuClose ion-item (click)="logout()">Logout</button>
-    </ion-list>
-  </ion-content>
-
-</ion-menu>
-
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-tabs>
+  <ion-tab [root]="tab1Root" tabTitle="Explore" tabIcon="search"></ion-tab>
+  <!--<ion-tab [root]="tab2Root" tabTitle="My Listings" tabIcon="information-circle"></ion-tab>-->
+  <ion-tab [root]="tab3Root" tabTitle="My Reservations" tabIcon="plane"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="Account" tabIcon="contacts"></ion-tab>
+</ion-tabs>

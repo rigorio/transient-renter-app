@@ -67,7 +67,7 @@ export class RegisterPage {
     }
     if (this.firstName.length < 2) {
       let alert = this.alertCtrl.create({
-        title: "First Name must be more than 1 character",
+        subTitle: "First Name must be more than 1 character",
         buttons: ['Ok']
       });
       // add loading
@@ -80,7 +80,7 @@ export class RegisterPage {
     }
     if (this.lastName.length < 2) {
       let alert = this.alertCtrl.create({
-        title: "Last Name must be more than 1 character",
+        subTitle: "Last Name must be more than 1 character",
         buttons: ['Ok']
       });
       // add loading
@@ -89,7 +89,7 @@ export class RegisterPage {
     }
     if (this.hasNumber(this.firstName) || this.hasNumber(this.lastName)) {
       let alert = this.alertCtrl.create({
-        title: "Name cannot contain numbers",
+        subTitle: "Name cannot contain numbers",
         buttons: ['Ok']
       });
       // add loading
@@ -106,7 +106,7 @@ export class RegisterPage {
     }
     if (this.registrantPassword.length < 8) {
       let alert = this.alertCtrl.create({
-        title: "Password must be at least than 8 characters",
+        subTitle: "Password must be at least than 8 characters",
         buttons: ['Ok']
       });
       // add loading
@@ -115,7 +115,7 @@ export class RegisterPage {
     }
     if (this.registrantPassword != this.confirmPassword) {
       let alert = this.alertCtrl.create({
-        title: "Passwords did not match",
+        subTitle: "Passwords did not match",
         buttons: ['Ok']
       });
       // add loading
@@ -127,7 +127,7 @@ export class RegisterPage {
 
   cannotBeBlank(name) {
     let alert = this.alertCtrl.create({
-      title: name + " cannot be blank",
+      subTitle: name + " cannot be blank",
       buttons: ['Ok']
     });
     // add loading
@@ -160,7 +160,7 @@ export class RegisterPage {
   addContact(contact: string) {
     if (contact == null || contact.length < 4) {
       let alert = this.alertCtrl.create({
-        title: "Must be at least 4 characters",
+        subTitle: "Must be at least 4 characters",
         buttons: ['Ok']
       });
       // add loading
@@ -171,5 +171,9 @@ export class RegisterPage {
     this.contacts.push(contact);
     console.log(this.contacts);
     this.contact = "";
+  }
+
+  login() {
+    this.navCtrl.push(LoginPage);
   }
 }
