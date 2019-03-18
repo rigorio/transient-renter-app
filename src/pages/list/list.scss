@@ -9,10 +9,6 @@ page-list {
   width: 100%;
 }
 
-.cardsize {
-  max-width: 40%;
-}
-
 .star-color {
   color: #ea3f4f;
 }
@@ -21,13 +17,29 @@ ion-card {
   box-shadow: none !important;
 }
 
+.ccm {
+  padding: 0;
+}
+
+.titulo {
+  font-size: 15px;
+}
+
+.presyu {
+  font-size: 13px;
+}
+
 .cardo {
   width: 40%;
   display: inline-block;
 }
 
-.sb {
-  width: 100%;
+.units {
+  font-size: 10px;
+}
+
+.girl {
+  font-size: 12px;
 }
 
 .limit {

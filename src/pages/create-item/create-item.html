@@ -10,14 +10,12 @@
 
 <ion-content padding>
 
-  <!--<button ion-button (click)="filepicker()">Add Image</button>-->
-
-  <!--<ion-item>-->
-    <!--<ion-label id="profile_image" stacked>Select Image</ion-label>-->
-    <!--<ion-input type="file" accept=".png, .jpg, .jpeg" (change)="selectFile($event)">-->
-      <!--Upload Image-->
-    <!--</ion-input>-->
-  <!--</ion-item>-->
+  <ion-item>
+    <ion-label id="profile_image" stacked>Select Image</ion-label>
+    <ion-input type="file" accept=".png, .jpg, .jpeg" (change)="selectFile($event)">
+      Upload Image
+    </ion-input>
+  </ion-item>
 
   <button ion-button (click)="androidFile()">Upload image</button>
 

@@ -2,20 +2,13 @@
   <ion-navbar>
     <ion-searchbar placeholder="Tap here and press enter to search" animated [(ngModel)]="keyword"
                    (search)="search()"></ion-searchbar>
-    <ion-row>
-      <ion-col>
-
-        <button outline class="sb" ion-button (click)="addFilter()">Advanced Search</button>
-      </ion-col>
-      <ion-col>
-
-        <button outline class="sb" ion-button (click)="clear()">Clear Filters</button>
-      </ion-col>
-    </ion-row>
   </ion-navbar>
 </ion-header>
 
 <ion-content text-center>
+  <br>
+  <button outline ion-button (click)="addFilter()">Advanced Search</button>
+  <br>
   <!--<ion-item>-->
   <!--<ion-label floating>Tap here to search</ion-label>-->
   <!--<ion-input [pattern]="pattern" title="No special" [(ngModel)]="keyword" (change)="search()"></ion-input>-->
@@ -31,16 +24,18 @@
 
 
     <!--<ion-card-header>-->
-    <ion-card-content>
+    <ion-card-content class="ccm">
       <!--<ion-card-title>-->
-      <h5>{{transient.propertyType}} - {{transient.slots}} units</h5>
-      <h3 class="crop">
+      <span class="units">{{transient.propertyType}} - {{transient.slots}} units</span>
+      <br>
+      <span class="crop titulo">
         <b>
           {{transient.title}}
         </b>
-      </h3>
+      </span>
+      <br>
 
-      {{transient.average != null ? transient.average : ""}}
+      <!--{{transient.average != null ? transient.average : ""}}-->
       <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 0"></ion-icon>
       <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 1"></ion-icon>
       <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 2"></ion-icon>
@@ -51,15 +46,18 @@
       <ion-icon name="star-outline" *ngIf="transient.stars.length <= 2"></ion-icon>
       <ion-icon name="star-outline" *ngIf="transient.stars.length <= 3"></ion-icon>
       <ion-icon name="star-outline" *ngIf="transient.stars.length <= 4"></ion-icon>
-      {{transient.houseReviews.length > 0 ? transient.houseReviews.length : ""}} review
-      <h6>
+      <!--{{transient.houseReviews.length > 0 ? transient.houseReviews.length : ""}} review-->
+      <br>
+      <span class="presyu">
         ₱ {{transient.price}}
-      </h6>
-
+      </span>
+      <br>
+      <span class="girl">
       {{transient.street}},
-      {{transient.city}},
-      {{transient.state}},
-      {{transient.country}}
+        {{transient.city}},
+        {{transient.state}},
+        {{transient.country}}
+      </span>
 
       <!--{{transient.}}-->
       <!--<rating class="starsize" [rate]="transient.average"-->
