@@ -1,57 +1,58 @@
-<!--<ion-header>-->
-
-<!--<ion-navbar color="primary">-->
-<!--<button ion-button menuToggle>-->
-<!--<ion-icon name="menu"></ion-icon>-->
-<!--</button>-->
-<!--<ion-title>My Reservations</ion-title>-->
-<!--</ion-navbar>-->
-
-<!--</ion-header>-->
-
 <ion-content>
-
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <h1 style="color: #555F61" padding-left>My Reservations</h1>
+  <div text-center>
 
-  <ion-card *ngFor="let reservation of reservations" (click)="itemTapped($event, reservation)">
+    <ion-card class="cardo" *ngFor="let reservation of reservations" (click)="itemTapped($event, reservation)" text-left>
 
-    <img src="{{ reservation.coverPic }}" alt="no pic added" *ngIf="reservation.coverPic!=null"/>
-
-    <!--<ion-card-header>-->
-    <ion-card-content>
+      <img class="limit" src="{{ reservation.coverPic }}" alt="no pic added" *ngIf="reservation.coverPic!=null"/>
 
 
-      <!--<ion-card-title>-->
-      <h5>{{reservation.propertyType}} - {{reservation.slots}} units</h5>
-      <h1 class="crop">
+      <!--<ion-card-header>-->
+      <ion-card-content class="ccm">
+        <!--<ion-card-title>-->
+        <span class="units">{{reservation.propertyType}} - {{reservation.slots}} units</span>
+        <br>
+        <span class="crop titulo">
         <b>
           {{reservation.title}}
         </b>
-      </h1>
+      </span>
+        <br>
 
-      <!--{{reservation.average != null ? reservation.average : ""}}-->
-      <!--<ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 0"></ion-icon>-->
-      <!--<ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 1"></ion-icon>-->
-      <!--<ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 2"></ion-icon>-->
-      <!--<ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 3"></ion-icon>-->
-      <!--<ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 4"></ion-icon>-->
-      <!--<ion-icon name="star-outline" *ngIf="reservation.stars.length <= 0"></ion-icon>-->
-      <!--<ion-icon name="star-outline" *ngIf="reservation.stars.length <= 1"></ion-icon>-->
-      <!--<ion-icon name="star-outline" *ngIf="reservation.stars.length <= 2"></ion-icon>-->
-      <!--<ion-icon name="star-outline" *ngIf="reservation.stars.length <= 3"></ion-icon>-->
-      <!--<ion-icon name="star-outline" *ngIf="reservation.stars.length <= 4"></ion-icon>-->
-      <!--{{reservation.reservationReviews.length > 0 ? reservation.reservationReviews.length : ""}}-->
-      <h6>
+        <!--{{reservation.average != null ? reservation.average : ""}}-->
+        <ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 0"></ion-icon>
+        <ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 1"></ion-icon>
+        <ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 2"></ion-icon>
+        <ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 3"></ion-icon>
+        <ion-icon class="star-color" name="star" *ngIf="reservation.stars.length > 4"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="reservation.stars.length <= 0"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="reservation.stars.length <= 1"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="reservation.stars.length <= 2"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="reservation.stars.length <= 3"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="reservation.stars.length <= 4"></ion-icon>
+        <!--{{reservation.houseReviews.length > 0 ? reservation.houseReviews.length : ""}} review-->
+        <br>
+        <span class="presyu">
         ₱ {{reservation.price}}
-      </h6>
-
+      </span>
+        <br>
+        <span class="girl">
       {{reservation.street}},
-      {{reservation.city}},
-      {{reservation.state}},
-      {{reservation.country}}
+          {{reservation.city}},
+          {{reservation.state}},
+          {{reservation.country}}
+      </span>
 
-    </ion-card-content>
+        <!--{{reservation.}}-->
+        <!--<rating class="starsize" [rate]="reservation.average"-->
+        <!--readonly="false" style="zoom:0.5;">-->
+        <!--</rating>-->
+      </ion-card-content>
 
-  </ion-card>
+    </ion-card>
 
+  </div>
 </ion-content>

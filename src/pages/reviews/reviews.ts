@@ -13,7 +13,7 @@ import {ReservationsPage} from "../reservations/reservations";
   templateUrl: 'reviews.html',
 })
 export class ReviewsPage {
-  score: number = 0;
+  score: number = 1;
   reservation: Reservation;
   review: string;
 
@@ -25,7 +25,7 @@ export class ReviewsPage {
               public navParams: NavParams,
               public events: Events) {
     events.subscribe('star-rating:changed', (starRating) => {
-      console.log(starRating)
+      console.log(starRating);
       this.score = starRating;
     });
     this.reservation = navParams.get('reservation');

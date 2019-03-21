@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color = "primary">
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -8,25 +8,32 @@
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content text-center>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <button ion-button (click)="createItem()">Add Item</button>
+  <br>
 
-  <ion-card *ngFor="let transient of transients" (click)="itemTapped($event, transient)">
+  <ion-card class="cardo" *ngFor="let transient of transients" (click)="itemTapped($event, transient)" text-left>
 
-    <img src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
+
+    <img class="limit" src="{{ transient.coverPic }}" alt="no pic added" *ngIf="transient.coverPic!=null"/>
 
 
     <!--<ion-card-header>-->
-    <ion-card-content >
+    <ion-card-content class="ccm">
       <!--<ion-card-title>-->
-      <h1 class="crop" >
+      <span class="units">{{transient.propertyType}} - {{transient.slots}} units</span>
+      <br>
+      <span class="crop titulo">
         <b>
           {{transient.title}}
         </b>
-      </h1>
+      </span>
+      <br>
 
-      {{transient.average != null ? transient.average : ""}}
+      <!--{{transient.average != null ? transient.average : ""}}-->
       <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 0"></ion-icon>
       <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 1"></ion-icon>
       <ion-icon class="star-color" name="star" *ngIf="transient.stars.length > 2"></ion-icon>
@@ -37,18 +44,18 @@
       <ion-icon name="star-outline" *ngIf="transient.stars.length <= 2"></ion-icon>
       <ion-icon name="star-outline" *ngIf="transient.stars.length <= 3"></ion-icon>
       <ion-icon name="star-outline" *ngIf="transient.stars.length <= 4"></ion-icon>
-      {{transient.houseReviews.length > 0 ? transient.houseReviews.length : ""}}
-      <h6>
+      <!--{{transient.houseReviews.length > 0 ? transient.houseReviews.length : ""}} review-->
+      <br>
+      <span class="presyu">
         ₱ {{transient.price}}
-      </h6>
-
-
+      </span>
+      <br>
+      <span class="girl">
       {{transient.street}},
-      {{transient.city}},
-      {{transient.state}},
-      {{transient.country}}
-
-      {{transient.slots}} units available
+        {{transient.city}},
+        {{transient.state}},
+        {{transient.country}}
+      </span>
 
       <!--{{transient.}}-->
       <!--<rating class="starsize" [rate]="transient.average"-->
@@ -56,9 +63,8 @@
       <!--</rating>-->
     </ion-card-content>
 
+
   </ion-card>
-
-
 
 
 </ion-content>

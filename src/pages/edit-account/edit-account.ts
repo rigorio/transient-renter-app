@@ -24,7 +24,7 @@ export class EditAccountPage {
               private fileChooser: FileChooser,
               private loadingController: LoadingController,
               private alertCtrl: AlertController) {
-    this.user = new User(0, 'n/a',  null, false, "", "", "");
+    this.user = new User(0, 'n/a', null, false, "", "", "", "");
 
     this.storage.get('irent-token').then(token => {
       let url = Host.host + "/users?token=" + token;
@@ -69,6 +69,17 @@ export class EditAccountPage {
 
 
   save() {
+
+    if (this.hasNumber(this.user.firstName) || this.hasNumber(this.user.lastName)){
+      let alert = this.alertCtrl.create({
+        subTitle: "Name should not contain any numbers",
+        buttons: ['Ok']
+      });
+      // add loading
+      alert.present();
+      return;
+    }
+
     let loading = this.loadingController.create({content: "Please wait...."});
     let map = new TSMap();
     map.set('firstName', this.user.firstName);
@@ -76,6 +87,7 @@ export class EditAccountPage {
     map.set('email', this.user.email);
     map.set('profPic', this.profPic);
     map.set('contacts', this.user.contacts);
+    map.set('location', this.user.location);
     let message = map.toJSON();
     loading.present();
     this.storage.get('irent-token').then(token => {
@@ -94,6 +106,10 @@ export class EditAccountPage {
       });
     })
     loading.dismissAll();
+  }
+
+  hasNumber(myString) {
+    return /\d/.test(myString);
   }
 
   androidFile() {
@@ -153,7 +169,9 @@ export class EditAccountPage {
         // });
       });
   }
+
   file: any;
+
   selectFile(event) {
     this.file = event.target.files[0];
     console.log(this.file);
