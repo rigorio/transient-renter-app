@@ -7,7 +7,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
   <ion-card>
     <!--<ion-item>-->
@@ -16,8 +15,13 @@
     <!--Upload Image-->
     <!--</ion-input>-->
     <!--</ion-item>-->
-    <img class="profpic" src="{{profPic}}" alt="no img selected" *ngIf="profPic!=null"/>
-    <button ion-button (click)="androidFile()">Replace image</button>
+    <img
+      class="profpic"
+      src="{{ profPic }}"
+      alt="no img selected"
+      *ngIf="profPic != null"
+    />
+    <button ion-button (click)="imageFile()">Replace image</button>
 
     <ion-item>
       <ion-label floating>First Name</ion-label>
@@ -39,9 +43,7 @@
       <ion-input [(ngModel)]="user.email"></ion-input>
     </ion-item>
 
-
     <ion-grid>
-
       <ion-row>
         <ion-col>
           <ion-item>
@@ -50,22 +52,26 @@
           </ion-item>
         </ion-col>
         <ion-col>
-          <button class="baton" (click)="addContact(contact)" ion-button color="primary" outline>
+          <button
+            class="baton"
+            (click)="addContact(contact)"
+            ion-button
+            color="primary"
+            outline
+          >
             Add Contact
           </button>
         </ion-col>
       </ion-row>
 
-
       <ion-row *ngFor="let contact of user.contacts" class="login-button">
         <ion-list>
           <button ion-item (click)="deleteContact(contact)">
-            {{contact}}
+            {{ contact }}
             <ion-icon name="close" item-end></ion-icon>
           </button>
         </ion-list>
       </ion-row>
-
     </ion-grid>
 
     <button class="login-button" ion-button (click)="save()">Save</button>
